@@ -43,7 +43,10 @@ if (leadForm) {
     const message = (document.getElementById('lead-message')?.value || '').trim();
 
     if (!phone) {
-      if (leadError) leadError.hidden = false;
+      if (leadError) {
+        leadError.textContent = 'יש למלא מספר טלפון.';
+        leadError.hidden = false;
+      }
       document.getElementById('lead-phone')?.focus();
       return;
     }
@@ -57,6 +60,12 @@ if (leadForm) {
     if (message) lines.push(`הודעה: ${message}`);
 
     const url = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(lines.join('\n'))}`;
-    window.open(url, '_blank', 'noopener');
+    const popup = window.open(url, '_blank');
+    if (popup) {
+      popup.opener = null;
+    } else if (leadError) {
+      leadError.textContent = 'ווטסאפ לא נפתח.';
+      leadError.hidden = false;
+    }
   });
 }

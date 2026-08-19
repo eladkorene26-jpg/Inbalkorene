@@ -51,6 +51,23 @@ h3 { font-size: 1.15rem; }
 
 p { margin: 0 0 14px; }
 
+.skip-link {
+  position: absolute;
+  inset-block-start: 8px;
+  inset-inline-start: 8px;
+  z-index: 1200;
+  padding: 8px 12px;
+  background: var(--ink);
+  color: var(--paper);
+  text-decoration: none;
+  border-radius: var(--radius);
+  transform: translateY(-160%);
+}
+
+.skip-link:focus {
+  transform: none;
+}
+
 .container {
   width: min(1120px, 100%);
   margin-inline: auto;
@@ -425,21 +442,6 @@ p { margin: 0 0 14px; }
   bottom: 16px;
   z-index: 1100;
 }
-
-.chat-panel {
-  position: absolute;
-  bottom: calc(100% + 8px);
-  left: 0;
-  width: 220px;
-  padding: 12px;
-  background: var(--paper);
-  border: 1px solid var(--hairline);
-  border-radius: 4px;
-  color: var(--muted);
-  font-size: 0.9rem;
-}
-
-.chat-panel p { margin: 0; }
 
 .chat-launcher {
   width: 52px;
