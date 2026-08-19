@@ -289,15 +289,11 @@ p { margin: 0 0 1em; }
   transition: opacity 0.85s ease, transform 0.85s ease;
 }
 
-/* Pinned reels — sticky 100dvh stage; treatments travel ~130vh per beat */
+/* Pinned reels — one 100dvh stage; one viewport of travel per beat (no black gaps) */
 .reel {
   --beat-travel: 100dvh;
   position: relative;
   height: calc(var(--beats) * var(--beat-travel) + 100dvh);
-}
-
-.reel--treatments {
-  --beat-travel: 130vh;
 }
 
 .reel-stage {
@@ -324,7 +320,8 @@ p { margin: 0 0 1em; }
   transform: scale(1);
   transform-origin: center;
   will-change: opacity, transform;
-  transition: opacity 0.45s ease;
+  visibility: hidden;
+  transition: none;
 }
 
 .reel[data-active="0"] .reel-plate:nth-child(1),
@@ -338,6 +335,9 @@ p { margin: 0 0 1em; }
 .reel[data-active="4"] .reel-plate:nth-child(5),
 .reel[data-active="4"] .beat:nth-child(5) {
   opacity: 1;
+  visibility: visible;
+  z-index: 2;
+  pointer-events: auto;
 }
 
 .reel-veil {
@@ -386,7 +386,9 @@ p { margin: 0 0 1em; }
   inset-inline: 0;
   top: 0;
   opacity: 0;
-  transition: opacity 0.45s ease;
+  visibility: hidden;
+  transition: none;
+  pointer-events: none;
 }
 
 
@@ -689,6 +691,8 @@ blockquote footer {
   .beat {
     position: static;
     opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto;
     padding-block: 2.4rem;
     border-block-end: 1px solid var(--line);
   }
