@@ -1,72 +1,62 @@
-// שנה לפוטר
 const yearEl = document.getElementById('year');
 if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-// Toggle nav (mobile)
 const navBtn = document.querySelector('.nav-toggle');
 const mainNav = document.getElementById('site-nav');
+
+function setNavOpen(open) {
+  if (!navBtn || !mainNav) return;
+  navBtn.setAttribute('aria-expanded', String(open));
+  navBtn.setAttribute('aria-label', open ? 'סגור תפריט' : 'פתח תפריט');
+  mainNav.classList.toggle('is-open', open);
+}
+
 if (navBtn && mainNav) {
-  navBtn.addEventListener('click', ()=>{
+  navBtn.addEventListener('click', () => {
     const open = navBtn.getAttribute('aria-expanded') === 'true';
-    navBtn.setAttribute('aria-expanded', String(!open));
-    mainNav.setAttribute('aria-expanded', String(!open));
+    setNavOpen(!open);
   });
 }
 
-// Smooth anchor scroll + close menu after click
-document.querySelectorAll('a[href^="#"]').forEach(a=>{
-  a.addEventListener('click', (e)=>{
-    const id = a.getAttribute('href').slice(1);
-    if(!id) return;
-    const el = document.getElementById(id);
-    if(el){ e.preventDefault(); el.scrollIntoView({behavior:'smooth', block:'start'}); }
-    if (mainNav && navBtn) {
-      mainNav.setAttribute('aria-expanded', 'false');
-      navBtn.setAttribute('aria-expanded', 'false');
-    }
+document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+  anchor.addEventListener('click', (event) => {
+    const id = anchor.getAttribute('href').slice(1);
+    if (!id) return;
+    const target = document.getElementById(id);
+    if (!target) return;
+    event.preventDefault();
+    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    setNavOpen(false);
   });
 });
 
-// Generic carousel setup
-function setupCarousel(root){
-  const track = root.querySelector('.car-track');
-  const prev = root.querySelector('.prev');
-  const next = root.querySelector('.next');
-  const dotsWrap = root.querySelector('.car-dots');
-  if (!track || !prev || !next || !dotsWrap) return;
+const WA_NUMBER = '972545576117';
+const leadForm = document.getElementById('lead-form');
+const leadError = document.getElementById('lead-error');
 
-  function pages(){ return Math.max(1, Math.ceil(track.scrollWidth / track.clientWidth)); }
-  function indexFromScroll(){ return Math.round(track.scrollLeft / track.clientWidth); }
-  function renderDots(){
-    dotsWrap.innerHTML = '';
-    const total = pages();
-    for(let i=0;i<total;i++){
-      const b = document.createElement('button');
-      if(i===indexFromScroll()) b.setAttribute('aria-current','true');
-      b.addEventListener('click', ()=> track.scrollTo({left: i*track.clientWidth, behavior:'smooth'}));
-      dotsWrap.appendChild(b);
+if (leadForm) {
+  leadForm.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const name = (document.getElementById('lead-name')?.value || '').trim();
+    const phone = (document.getElementById('lead-phone')?.value || '').trim();
+    const treatment = (document.getElementById('lead-treatment')?.value || '').trim();
+    const message = (document.getElementById('lead-message')?.value || '').trim();
+
+    if (!phone) {
+      if (leadError) leadError.hidden = false;
+      document.getElementById('lead-phone')?.focus();
+      return;
     }
-  }
-  function go(dir){ track.scrollBy({left: dir*track.clientWidth, behavior:'smooth'}); }
 
-  prev.addEventListener('click', ()=> go(-1));
-  next.addEventListener('click', ()=> go(1));
-  track.addEventListener('scroll', renderDots);
-  window.addEventListener('resize', renderDots);
+    if (leadError) leadError.hidden = true;
 
-  // drag support
-  let isDown=false, startX=0, scrollLeft=0;
-  track.addEventListener('pointerdown', (e)=>{ isDown=true; startX=e.pageX; scrollLeft=track.scrollLeft; track.setPointerCapture(e.pointerId); });
-  track.addEventListener('pointermove', (e)=>{ if(!isDown) return; const dx=e.pageX - startX; track.scrollLeft = scrollLeft - dx; });
-  ['pointerup','pointercancel','pointerleave'].forEach(ev=> track.addEventListener(ev, ()=>{ isDown=false; }));
+    const lines = [];
+    if (name) lines.push(`שם: ${name}`);
+    lines.push(`טלפון: ${phone}`);
+    if (treatment) lines.push(`טיפול: ${treatment}`);
+    if (message) lines.push(`הודעה: ${message}`);
 
-  renderDots();
+    const url = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(lines.join('\n'))}`;
+    window.open(url, '_blank', 'noopener');
+  });
 }
-document.querySelectorAll('.carousel').forEach(setupCarousel);
-
-// Instagram embed process after load
-function processIG(){
-  if (window.instgrm && window.instgrm.Embeds) window.instgrm.Embeds.process();
-}
-if (document.readyState === 'complete') processIG();
-else window.addEventListener('load', processIG);
