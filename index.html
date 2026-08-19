@@ -6,10 +6,10 @@
   <title>עינבל קורן – טיפולי פנים מתקדמים (Venus Versa)</title>
   <meta name="description" content="קליניקת בוטיק לטיפולי פנים מתקדמים בנווה זיו. מכשור Venus Versa, התאמה אישית ותוצאות שמדברות בעד עצמן. קביעת תור מהירה בווטסאפ או אונליין." />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@200;300;400;500;700;800&display=swap" rel="stylesheet">
   <link rel="canonical" href="https://www.inbalkorene.co.il/" />
+  <link rel="preload" as="image" href="assets/inbal-hero.jpg">
 
-  <!-- Icons & PWA basics -->
   <link rel="icon" href="assets/favicon.ico" sizes="any">
   <link rel="icon" type="image/png" href="assets/favicon-192.png" sizes="192x192">
   <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
@@ -18,221 +18,270 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <a class="skip-link" href="#home">דלגי לתוכן</a>
 
-  <!-- Header -->
   <header class="site-header">
-    <div class="container header-inner">
-      <a class="brand" href="#home" aria-label="דף הבית">
-        <img id="brandLogo" src="assets/logo-inbal.png" alt="Inbal Korene Logo" />
-      </a>
-
-      <button class="nav-toggle" aria-expanded="false" aria-controls="site-nav" aria-label="פתח תפריט">☰</button>
-
-      <nav id="site-nav" class="main-nav">
-        <a href="#about">קצת עליי</a>
-        <a href="#treatments">טיפולים מובילים</a>
-        <a href="#video">מהקליניקה – וידאו</a>
-        <a href="#testimonials">ממליצות</a>
-        <a href="#visit">איך מגיעים</a>
-        <a class="btn btn-primary" href="https://wa.me/972545576117?text=%D7%94%D7%99%D7%99%20%D7%A2%D7%99%D7%A0%D7%91%D7%9C%2C%20%D7%A8%D7%A6%D7%99%D7%AA%D7%99%20%D7%9C%D7%A7%D7%91%D7%95%D7%A2%20%D7%98%D7%95%D7%A8" target="_blank" rel="noopener nofollow">תאמי תור</a>
-      </nav>
-    </div>
+    <a class="brand" href="#home" aria-label="דף הבית">
+      <img src="assets/logo-inbal.png" alt="Inbal Korene Logo" width="1300" height="1300" />
+    </a>
+    <a class="btn btn-ghost" href="https://wa.me/972545576117?text=%D7%94%D7%99%D7%99%20%D7%A2%D7%99%D7%A0%D7%91%D7%9C%2C%20%D7%A8%D7%A6%D7%99%D7%AA%D7%99%20%D7%9C%D7%A7%D7%91%D7%95%D7%A2%20%D7%AA%D7%95%D7%A8" target="_blank" rel="noopener nofollow">תאמי תור</a>
   </header>
 
-  <!-- Hero -->
-  <section id="home" class="hero">
-    <div class="container hero-grid">
-      <div class="hero-copy">
-        <h1>טיפולי פנים מתקדמים בקליניקת בוטיק</h1>
-        <p>שילוב מנצח של מגע אישי ומכשור <strong>Venus Versa</strong> לתוצאות מדויקות: אקנה, הצרת נקבוביות, החלקת קמטוטים, החייאת העור ועוד.</p>
-        <div class="hero-ctas">
-          <a class="btn btn-primary" href="https://wa.me/972545576117?text=%D7%94%D7%99%D7%99%20%D7%A2%D7%99%D7%A0%D7%91%D7%9C%2C%20%D7%A8%D7%A6%D7%99%D7%AA%D7%99%20%D7%9C%D7%A7%D7%91%D7%95%D7%A2%20%D7%98%D7%95%D7%A8" target="_blank" rel="noopener nofollow">תאמי תור בווטסאפ</a>
+  <main>
+    <section id="home" class="chapter plate hero">
+      <div class="plate-media">
+        <img
+          class="plate-img"
+          src="assets/inbal-hero.jpg"
+          alt="עינבל קורן בקליניקה – תמונת הירו"
+          width="1365"
+          height="2048"
+          fetchpriority="high"
+          decoding="async">
+        <div class="plate-veil" aria-hidden="true"></div>
+      </div>
+      <div class="plate-type">
+        <h1 class="reveal">טיפולי פנים מתקדמים בקליניקת בוטיק</h1>
+        <p class="reveal">שילוב מנצח של מגע אישי ומכשור <strong>Venus Versa</strong> לתוצאות מדויקות: אקנה, הצרת נקבוביות, החלקת קמטוטים, החייאת העור ועוד.</p>
+        <div class="hero-ctas reveal">
+          <a class="btn btn-accent" href="https://wa.me/972545576117?text=%D7%94%D7%99%D7%99%20%D7%A2%D7%99%D7%A0%D7%91%D7%9C%2C%20%D7%A8%D7%A6%D7%99%D7%AA%D7%99%20%D7%9C%D7%A7%D7%91%D7%95%D7%A2%20%D7%AA%D7%95%D7%A8" target="_blank" rel="noopener nofollow">תאמי תור בווטסאפ</a>
           <a class="btn btn-ghost" href="https://zmantov.co.il/b/jCPiAgmx/" target="_blank" rel="noopener nofollow">קביעת תור אונליין</a>
         </div>
       </div>
-      <div class="hero-media">
-        <!-- תמונת הירו – Placeholder. החליפי ל-assets/inbal-hero.jpg -->
-        <img src="assets/inbal-hero.jpg" alt="עינבל קורן בקליניקה – תמונת הירו" loading="lazy" decoding="async">
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- About -->
-  <section id="about" class="section">
-    <div class="container about-grid">
-      <div class="about-copy">
-        <h2>קצת עליי</h2>
-        <p>אני עינבל קורן, קוסמטיקאית רפואית עם ניסיון רב והתמחות בטיפולים מתקדמים בשילוב טכנולוגיות מובילות. המפגש בקליניקה הוא אישי, קשוב ומדויק – כדי שתצאי עם תוצאה שאת אוהבת.</p>
-      </div>
-      <div class="about-media">
-        <!-- Placeholder image. החליפי ל-assets/about.jpg -->
-        <img src="assets/about.jpg" alt="עינבל קורן – בקליניקה" loading="lazy" decoding="async">
-      </div>
-    </div>
-  </section>
+    <section id="treatments" class="reel reel--treatments" data-beats="5" data-active="0" style="--beats: 5">
+      <div class="reel-stage">
+        <div class="reel-plates" aria-hidden="true">
+          <img class="reel-plate" src="assets/inbal-hero.jpg" alt="" width="1365" height="2048" style="object-position: 22% 32%" loading="lazy" decoding="async">
+          <img class="reel-plate" src="assets/about.jpg" alt="" width="960" height="952" style="object-position: 72% 38%" loading="lazy" decoding="async">
+          <img class="reel-plate" src="assets/inbal-hero.jpg" alt="" width="1365" height="2048" style="object-position: 78% 78%" loading="lazy" decoding="async">
+          <img class="reel-plate" src="assets/about.jpg" alt="" width="960" height="952" style="object-position: 18% 18%" loading="lazy" decoding="async">
+          <img class="reel-plate" src="assets/inbal-hero.jpg" alt="" width="1365" height="2048" style="object-position: 40% 88%" loading="lazy" decoding="async">
+          <div class="reel-veil"></div>
+        </div>
 
-  <!-- Treatments -->
-  <section id="treatments" class="section alt">
-    <div class="container">
-      <h2>טיפולים מובילים</h2>
-
-      <div class="carousel">
-        <button class="prev" aria-label="לפני">‹</button>
-        <div class="car-track">
-          <article class="treatment-card">
-            <div>
+        <div class="reel-copy">
+          <h2 class="reel-kicker">טיפולים מובילים</h2>
+          <div class="beats">
+            <article class="beat">
+              <img class="beat-still" src="assets/inbal-hero.jpg" alt="" width="1365" height="2048" style="object-position: 22% 32%" loading="lazy" decoding="async">
               <h3>אנטי-אייג'ינג <small>Multi-Polar RF + Pulsed Magnetic Fields</small></h3>
               <p>שיפור מיצוק, אלסטיות והחלקת קמטוטים בסדרה מותאמת אישית.</p>
-            </div>
-            <a class="btn" href="https://wa.me/972545576117?text=%D7%94%D7%99%D7%99%20%D7%A2%D7%99%D7%A0%D7%91%D7%9C%2C%20%D7%AA%D7%95%D7%90%D7%9E%D7%99%20%D7%9C%D7%99%20%D7%98%D7%99%D7%A4%D7%95%D7%9C%20%D7%90%D7%A0%D7%98%D7%99%20%D7%90%D7%99%D7%99%D7%92'%D7%99%D7%A0%D7%92" target="_blank" rel="noopener nofollow">ייעוץ מהיר</a>
-          </article>
-          <article class="treatment-card">
-            <div>
+              <a class="btn btn-ghost" href="https://wa.me/972545576117?text=%D7%94%D7%99%D7%99%20%D7%A2%D7%99%D7%A0%D7%91%D7%9C%2C%20%D7%AA%D7%95%D7%90%D7%9E%D7%99%20%D7%9C%D7%99%20%D7%98%D7%99%D7%A4%D7%95%D7%9C%20%D7%90%D7%A0%D7%98%D7%99%20%D7%90%D7%99%D7%99%D7%92'%D7%99%D7%A0%D7%92" target="_blank" rel="noopener nofollow">ייעוץ מהיר</a>
+            </article>
+            <article class="beat">
+              <img class="beat-still" src="assets/about.jpg" alt="" width="960" height="952" style="object-position: 72% 38%" loading="lazy" decoding="async">
               <h3>אקנה פעיל <small>Photorejuvenation (IPL)</small></h3>
               <p>איזון פעילות חיידקית והרגעת דלקת עם פרוטוקול עדין ומדויק.</p>
-            </div>
-            <a class="btn" href="https://wa.me/972545576117?text=%D7%94%D7%99%D7%99%20%D7%A2%D7%99%D7%A0%D7%91%D7%9C%2C%20%D7%94%D7%90%D7%9D%20%D7%98%D7%99%D7%A4%D7%95%D7%9C%20IPL%20%D7%9E%D7%AA%D7%90%D7%99%D7%9D%20%D7%9C%D7%99%3F" target="_blank" rel="noopener nofollow">זה מתאים לי?</a>
-          </article>
-          <article class="treatment-card">
-            <div>
+              <a class="btn btn-ghost" href="https://wa.me/972545576117?text=%D7%94%D7%99%D7%99%20%D7%A2%D7%99%D7%A0%D7%91%D7%9C%2C%20%D7%94%D7%90%D7%9D%20%D7%98%D7%99%D7%A4%D7%95%D7%9C%20IPL%20%D7%9E%D7%AA%D7%90%D7%99%D7%9D%20%D7%9C%D7%99%3F" target="_blank" rel="noopener nofollow">זה מתאים לי?</a>
+            </article>
+            <article class="beat">
+              <img class="beat-still" src="assets/inbal-hero.jpg" alt="" width="1365" height="2048" style="object-position: 78% 78%" loading="lazy" decoding="async">
               <h3>גלו-האנדל <small>DiamondPolar / Skin Glow</small></h3>
               <p>הענקת זוהר מיידי לפני אירוע – מרקם חלק וברק טבעי.</p>
-            </div>
-            <a class="btn" href="https://wa.me/972545576117?text=%D7%94%D7%99%D7%99%20%D7%A2%D7%99%D7%A0%D7%91%D7%9C%2C%20%D7%9E%D7%A2%D7%95%D7%A0%D7%99%D7%99%D7%A0%D7%94%20%D7%91%D7%92%D7%9C%D7%95%D7%90%D7%95%20%D7%94%D7%90%D7%A0%D7%93%D7%9C" target="_blank" rel="noopener nofollow">לקראת אירוע</a>
-          </article>
-          <article class="treatment-card">
-            <div>
+              <a class="btn btn-ghost" href="https://wa.me/972545576117?text=%D7%94%D7%99%D7%99%20%D7%A2%D7%99%D7%A0%D7%91%D7%9C%2C%20%D7%9E%D7%A2%D7%95%D7%A0%D7%99%D7%99%D7%A0%D7%94%20%D7%91%D7%92%D7%9C%D7%95%D7%90%D7%95%20%D7%94%D7%90%D7%A0%D7%93%D7%9C" target="_blank" rel="noopener nofollow">לקראת אירוע</a>
+            </article>
+            <article class="beat">
+              <img class="beat-still" src="assets/about.jpg" alt="" width="960" height="952" style="object-position: 18% 18%" loading="lazy" decoding="async">
               <h3>הצרת נקבוביות <small>NanoFractional RF</small></h3>
               <p>שיפור טקסטורה ומראה אחיד לעור בעזרת מיקרו-אבלציה מבוקרת.</p>
-            </div>
-            <a class="btn" href="https://wa.me/972545576117?text=%D7%94%D7%99%D7%99%20%D7%A2%D7%99%D7%A0%D7%91%D7%9C%2C%20%D7%A8%D7%A6%D7%99%D7%AA%D7%99%20%D7%9E%D7%99%D7%93%D7%A2%20%D7%A2%D7%9C%20NanoFractional%20RF" target="_blank" rel="noopener nofollow">בדיקת התאמה</a>
-          </article>
-          <article class="treatment-card">
-            <div>
+              <a class="btn btn-ghost" href="https://wa.me/972545576117?text=%D7%94%D7%99%D7%99%20%D7%A2%D7%99%D7%A0%D7%91%D7%9C%2C%20%D7%A8%D7%A6%D7%99%D7%AA%D7%99%20%D7%9E%D7%99%D7%93%D7%A2%20%D7%A2%D7%9C%20NanoFractional%20RF" target="_blank" rel="noopener nofollow">בדיקת התאמה</a>
+            </article>
+            <article class="beat">
+              <img class="beat-still" src="assets/inbal-hero.jpg" alt="" width="1365" height="2048" style="object-position: 40% 88%" loading="lazy" decoding="async">
               <h3>הסרת שיער בלייזר <small>Diode Laser Hair Removal</small></h3>
               <p>טיפול מדויק להפחתה קבועה של שיעור, עם קירור מתקדם לנוחות מרבית.</p>
-            </div>
-            <a class="btn" href="https://wa.me/972545576117?text=%D7%94%D7%99%D7%99%20%D7%A2%D7%99%D7%A0%D7%91%D7%9C%2C%20%D7%A8%D7%95%D7%A6%D7%94%20%D7%9E%D7%99%D7%93%D7%A2%20%D7%A2%D7%9C%20%D7%94%D7%A1%D7%A8%D7%AA%20%D7%A9%D7%99%D7%A2%D7%A8%20%D7%91%D7%9C%D7%99%D7%99%D7%96%D7%A8" target="_blank" rel="noopener nofollow">בדיקת התאמה</a>
-          </article>
+              <a class="btn btn-ghost" href="https://wa.me/972545576117?text=%D7%94%D7%99%D7%99%20%D7%A2%D7%99%D7%A0%D7%91%D7%9C%2C%20%D7%A8%D7%95%D7%A6%D7%94%20%D7%9E%D7%99%D7%93%D7%A2%20%D7%A2%D7%9C%20%D7%94%D7%A1%D7%A8%D7%AA%20%D7%A9%D7%99%D7%A2%D7%A8%20%D7%91%D7%9C%D7%99%D7%99%D7%96%D7%A8" target="_blank" rel="noopener nofollow">בדיקת התאמה</a>
+            </article>
+          </div>
         </div>
-        <button class="next" aria-label="אחרי">›</button>
-        <div class="car-dots" aria-label="עמודים"></div>
+
+        <ol class="reel-index" aria-label="טיפולים מובילים">
+          <li aria-current="true">1</li>
+          <li>2</li>
+          <li>3</li>
+          <li>4</li>
+          <li>5</li>
+        </ol>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Video (Instagram Embed) -->
-  <section id="video" class="section">
-    <div class="container">
-      <h2>מהקליניקה – וידאו קצר</h2>
-      <p class="muted">הצצה לטכנולוגיה ולחוויה בקליניקה של עינבל.</p>
+    <section id="about" class="chapter plate about">
+      <div class="plate-media">
+        <img
+          class="plate-img"
+          src="assets/about.jpg"
+          alt="עינבל קורן – בקליניקה"
+          width="960"
+          height="952"
+          loading="lazy"
+          decoding="async">
+        <div class="plate-veil" aria-hidden="true"></div>
+      </div>
+      <div class="plate-type">
+        <h2 class="reveal">קצת עליי</h2>
+        <p class="reveal">אני עינבל קורן, קוסמטיקאית רפואית עם ניסיון רב והתמחות בטיפולים מתקדמים בשילוב טכנולוגיות מובילות. המפגש בקליניקה הוא אישי, קשוב ומדויק – כדי שתצאי עם תוצאה שאת אוהבת.</p>
+      </div>
+    </section>
 
-      <div class="ig-card">
-        <div class="ig-embed-wrap" aria-label="וידאו אינסטגרם">
-          <blockquote
-            class="instagram-media"
-            data-instgrm-permalink="https://www.instagram.com/reel/C3LU7qKoLXI/"
-            data-instgrm-version="14"
-            data-instgrm-captioned="false">
-          </blockquote>
+    <section id="testimonials" class="reel reel--quotes" data-beats="4" data-active="0" style="--beats: 4">
+      <div class="reel-stage">
+        <div class="reel-copy reel-copy--quote">
+          <h2 class="reel-kicker">לקוחות ממליצות</h2>
+          <div class="beats">
+            <article class="beat">
+              <blockquote>
+                <p>“אחרי סדרת טיפולים קצרה העור שלי נראה רענן מתמיד. עינבל פשוט זהב!”</p>
+                <footer>– נועה כ.</footer>
+              </blockquote>
+            </article>
+            <article class="beat">
+              <blockquote>
+                <p>“יחס אישי ומקצועי. קיבלתי תוכנית מותאמת והרגשתי שינוי כבר אחרי טיפול שני.”</p>
+                <footer>– מאיה ש.</footer>
+              </blockquote>
+            </article>
+            <article class="beat">
+              <blockquote>
+                <p>“גלואו לפני החתונה עשה את כל ההבדל! תודה ענקית 💫”</p>
+                <footer>– רוני מ.</footer>
+              </blockquote>
+            </article>
+            <article class="beat">
+              <blockquote>
+                <p>“הסרת שיער בלי כאב כמעט – והכי חשוב, תוצאות!”</p>
+                <footer>– הדר ל.</footer>
+              </blockquote>
+            </article>
+          </div>
         </div>
+
+        <ol class="reel-index" aria-label="לקוחות ממליצות">
+          <li aria-current="true">1</li>
+          <li>2</li>
+          <li>3</li>
+          <li>4</li>
+        </ol>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Testimonials -->
-  <section id="testimonials" class="section">
-    <div class="container">
-      <h2>לקוחות ממליצות</h2>
-
-      <div class="carousel">
-        <button class="prev" aria-label="לפני">‹</button>
-        <div class="car-track">
-          <article class="review-card">
-            <p>“אחרי סדרת טיפולים קצרה העור שלי נראה רענן מתמיד. עינבל פשוט זהב!”</p>
-            <footer>– נועה כ.</footer>
-          </article>
-          <article class="review-card">
-            <p>“יחס אישי ומקצועי. קיבלתי תוכנית מותאמת והרגשתי שינוי כבר אחרי טיפול שני.”</p>
-            <footer>– מאיה ש.</footer>
-          </article>
-          <article class="review-card">
-            <p>“גלואו לפני החתונה עשה את כל ההבדל! תודה ענקית 💫”</p>
-            <footer>– רוני מ.</footer>
-          </article>
-          <article class="review-card">
-            <p>“הסרת שיער בלי כאב כמעט – והכי חשוב, תוצאות!”</p>
-            <footer>– הדר ל.</footer>
-          </article>
-        </div>
-        <button class="next" aria-label="אחרי">›</button>
-        <div class="car-dots" aria-label="עמודים"></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Visit -->
-  <section id="visit" class="section">
-    <div class="container visit-grid">
-      <div>
-        <h2>איך מגיעים?</h2>
-        <p>דרך הפארק 13, נווה זיו</p>
-        <div class="visit-ctas">
-          <a class="btn" href="https://waze.com/ul?q=נווה%20זיו%20דרך%20הפארק%2013" target="_blank" rel="noopener nofollow" aria-label="נווטי ב-Waze">נווטי ב-Waze</a>
+    <section id="visit" class="chapter visit">
+      <div class="chapter-inner">
+        <h2 class="reveal">איך מגיעים?</h2>
+        <p class="visit-address reveal">דרך הפארק 13, נווה זיו</p>
+        <dl class="hours reveal">
+          <div>
+            <dt>ראשון, שני, רביעי, חמישי</dt>
+            <dd>09:30–14:00</dd>
+          </div>
+          <div>
+            <dt>שלישי</dt>
+            <dd>09:30–16:00</dd>
+          </div>
+          <div>
+            <dt>שישי</dt>
+            <dd>09:00–12:00</dd>
+          </div>
+          <div>
+            <dt>שבת</dt>
+            <dd>סגור</dd>
+          </div>
+        </dl>
+        <div class="visit-ctas reveal">
+          <a class="btn btn-ghost" href="https://waze.com/ul?q=נווה%20זיו%20דרך%20הפארק%2013" target="_blank" rel="noopener nofollow" aria-label="נווטי ב-Waze">נווטי ב-Waze</a>
           <a class="btn btn-ghost" href="https://maps.google.com/?q=%D7%93%D7%A8%D7%9A%20%D7%94%D7%A4%D7%90%D7%A8%D7%A7%2013%2C%20%D7%A0%D7%95%D7%95%D7%94%20%D7%96%D7%99%D7%95" target="_blank" rel="noopener nofollow" aria-label="פתחי ב-Google Maps">Google Maps</a>
         </div>
-      </div>
-
-      <div class="map-wrap">
-        <iframe
-          src="https://maps.google.com/maps?q=%D7%93%D7%A8%D7%9A%20%D7%94%D7%A4%D7%90%D7%A8%D7%A7%2013%20%D7%A0%D7%95%D7%95%D7%94%20%D7%96%D7%99%D7%95&z=15&output=embed"
-          loading="lazy"
-          referrerpolicy="no-referrer-when-downgrade"
-          title="מפה – נווה זיו"
-          aria-label="מפת הגעה">
-        </iframe>
-        <div class="map-fallback">
-          <a class="btn btn-ghost" href="https://maps.google.com/?q=%D7%93%D7%A8%D7%9A%20%D7%94%D7%A4%D7%90%D7%A8%D7%A7%2013%2C%20%D7%A0%D7%95%D7%95%D7%94%20%D7%96%D7%99%D7%95" target="_blank" rel="noopener">פתחי מפה בחלון חדש</a>
+        <div class="map-wrap reveal">
+          <iframe
+            src="https://maps.google.com/maps?q=%D7%93%D7%A8%D7%9A%20%D7%94%D7%A4%D7%90%D7%A8%D7%A7%2013%20%D7%A0%D7%95%D7%95%D7%94%20%D7%96%D7%99%D7%95&z=15&output=embed"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            title="מפה – נווה זיו"
+            aria-label="מפת הגעה">
+          </iframe>
+          <p class="map-fallback">
+            <a href="https://maps.google.com/?q=%D7%93%D7%A8%D7%9A%20%D7%94%D7%A4%D7%90%D7%A8%D7%A7%2013%2C%20%D7%A0%D7%95%D7%95%D7%94%20%D7%96%D7%99%D7%95" target="_blank" rel="noopener">פתחי מפה בחלון חדש</a>
+          </p>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Footer -->
+    <section id="lead" class="chapter lead">
+      <div class="chapter-inner">
+        <h2 class="reveal">תאמי תור</h2>
+        <form id="lead-form" class="lead-form reveal" novalidate>
+          <label>
+            <span>שם</span>
+            <input type="text" name="name" autocomplete="name" required>
+          </label>
+          <label>
+            <span>טלפון</span>
+            <input type="tel" name="phone" autocomplete="tel" required>
+          </label>
+          <label>
+            <span>טיפול</span>
+            <select name="treatment">
+              <option>אנטי-אייג'ינג</option>
+              <option>אקנה פעיל</option>
+              <option>גלו-האנדל</option>
+              <option>הצרת נקבוביות</option>
+              <option>הסרת שיער בלייזר</option>
+              <option>לא בטוחה</option>
+            </select>
+          </label>
+          <label>
+            <span>הודעה</span>
+            <textarea name="message" rows="3"></textarea>
+          </label>
+          <button type="submit" class="btn btn-ghost">שלחי בווטסאפ</button>
+          <p class="form-status" hidden><a class="form-status-link" href="https://wa.me/972545576117" target="_blank" rel="noopener nofollow">ווטסאפ לא נפתח.</a></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
   <footer class="site-footer">
-    <div class="container footer-grid">
-      <div class="footer-col">
-        <strong>עינבל קורן – טיפולי פנים מתקדמים</strong><br>
-        דרך הפארק 13, נווה זיו<br>
-        טל׳ <a href="tel:+972545576117">054-557-6117</a>
+    <a class="brand brand--footer" href="#home" aria-label="דף הבית">
+      <img src="assets/logo-inbal.png" alt="Inbal Korene Logo" width="1300" height="1300" />
+    </a>
+    <p>
+      <strong>עינבל קורן – טיפולי פנים מתקדמים</strong><br>
+      דרך הפארק 13, נווה זיו<br>
+      טל׳ <a href="tel:+972545576117">054-557-6117</a>
+    </p>
+    <dl class="hours hours--footer">
+      <div>
+        <dt>ראשון, שני, רביעי, חמישי</dt>
+        <dd>09:30–14:00</dd>
       </div>
-
-      <div class="footer-logo">
-        <a href="https://wa.me/972545576117?text=%D7%94%D7%99%D7%99%20%D7%A2%D7%99%D7%A0%D7%91%D7%9C%2C%20%D7%A8%D7%A6%D7%99%D7%AA%D7%99%20%D7%9C%D7%A7%D7%91%D7%95%D7%A2%20%D7%98%D7%95%D7%A8" target="_blank" rel="noopener nofollow" aria-label="לתיאום תור בווטסאפ">
-          <img src="assets/logo-inbal.png" alt="Inbal Korene – קביעת תור" />
-        </a>
+      <div>
+        <dt>שלישי</dt>
+        <dd>09:30–16:00</dd>
       </div>
-
-      <div class="footer-legal">
-        © <span id="year"></span> כל הזכויות שמורות
+      <div>
+        <dt>שישי</dt>
+        <dd>09:00–12:00</dd>
       </div>
-    </div>
+      <div>
+        <dt>שבת</dt>
+        <dd>סגור</dd>
+      </div>
+    </dl>
+    <p class="footer-legal">© <span id="year"></span> כל הזכויות שמורות</p>
   </footer>
 
-  <!-- Sticky CTA (mobile) -->
-  <div class="sticky-cta" dir="rtl" aria-label="קביעת תור מהיר">
-    <a class="btn" href="https://wa.me/972545576117?text=%D7%94%D7%99%D7%99%20%D7%A2%D7%99%D7%A0%D7%91%D7%9C%2C%20%D7%A8%D7%A6%D7%99%D7%AA%D7%99%20%D7%9C%D7%A7%D7%91%D7%95%D7%A2%20%D7%98%D7%95%D7%A8" target="_blank" rel="noopener nofollow">ווטסאפ</a>
-    <a class="btn btn-ghost" href="https://zmantov.co.il/b/jCPiAgmx/" target="_blank" rel="noopener nofollow">תור אונליין</a>
-  </div>
+  <a
+    class="wa-launcher"
+    href="https://wa.me/972545576117?text=%D7%94%D7%99%D7%99%20%D7%A2%D7%99%D7%A0%D7%91%D7%9C%2C%20%D7%A8%D7%A6%D7%99%D7%AA%D7%99%20%D7%9C%D7%A7%D7%91%D7%95%D7%A2%20%D7%AA%D7%95%D7%A8"
+    target="_blank"
+    rel="noopener nofollow"
+    aria-label="תאמי תור בווטסאפ">
+    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+      <path fill="currentColor" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.435 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+    </svg>
+  </a>
 
-  <!-- Floating quick-actions -->
-  <div class="fab-stack" aria-label="פעולות מהירות">
-    <a class="fab" href="https://wa.me/972545576117" target="_blank" rel="noopener" aria-label="ווטסאפ"><span>WA</span></a>
-    <a class="fab" href="https://zmantov.co.il/b/jCPiAgmx/" target="_blank" rel="noopener" aria-label="קביעת תור אונליין"><span>⏱</span></a>
-    <a class="fab" href="https://www.instagram.com/inbal_korene/" target="_blank" rel="noopener" aria-label="אינסטגרם"><span>IG</span></a>
-  </div>
-
-  <!-- SEO: schema.org -->
   <script type="application/ld+json">
   {
     "@context":"https://schema.org",
@@ -242,12 +291,16 @@
     "address":{"@type":"PostalAddress","streetAddress":"דרך הפארק 13","addressLocality":"נווה זיו","addressCountry":"IL"},
     "telephone":"+972-54-557-6117",
     "url":"https://www.inbalkorene.co.il/",
-    "sameAs":["https://www.instagram.com/inbal_korene/"]
+    "sameAs":["https://www.instagram.com/inbal_korene/"],
+    "openingHours":["Su,Mo,We,Th 09:30-14:00","Tu 09:30-16:00","Fr 09:00-12:00"],
+    "openingHoursSpecification":[
+      {"@type":"OpeningHoursSpecification","dayOfWeek":["Sunday","Monday","Wednesday","Thursday"],"opens":"09:30","closes":"14:00"},
+      {"@type":"OpeningHoursSpecification","dayOfWeek":"Tuesday","opens":"09:30","closes":"16:00"},
+      {"@type":"OpeningHoursSpecification","dayOfWeek":"Friday","opens":"09:00","closes":"12:00"}
+    ]
   }
   </script>
 
-  <!-- Scripts -->
-  <script async src="https://www.instagram.com/embed.js"></script>
   <script defer src="script.js"></script>
 </body>
 </html>
