@@ -401,6 +401,13 @@ p { margin: 0 0 1em; }
 .crop-hair-hand { object-position: 80% 18%; transform-origin: 80% 18%; }
 .crop-wider { object-position: 46% 52%; transform-origin: 46% 52%; }
 
+/* Treatment stills are device plates — keep quote portrait crops untouched. */
+.reel--treatments .crop-face-right { object-position: 68% 40%; transform-origin: 68% 40%; }
+.reel--treatments .crop-tight { object-position: 50% 36%; transform-origin: 50% 36%; }
+.reel--treatments .crop-flowers { object-position: 42% 58%; transform-origin: 42% 58%; }
+.reel--treatments .crop-hair-hand { object-position: 56% 46%; transform-origin: 56% 46%; }
+.reel--treatments .crop-wider { object-position: 50% 38%; transform-origin: 50% 38%; }
+
 .reel-copy {
   position: absolute;
   z-index: 2;
