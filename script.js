@@ -104,13 +104,15 @@
     navBtn.setAttribute('aria-expanded', String(open));
     navBtn.textContent = open ? 'סגור' : 'פתח';
     if (header) header.classList.toggle('is-nav-open', open);
+    document.documentElement.classList.toggle('is-nav-locked', open);
+    document.body.classList.toggle('is-nav-locked', open);
   }
   if (navBtn && nav) {
     navBtn.addEventListener('click', () => {
       setNav(navBtn.getAttribute('aria-expanded') !== 'true');
     });
-    nav.addEventListener('click', (event) => {
-      if (event.target.closest('a[href^="#"]')) setNav(false);
+    nav.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', () => setNav(false));
     });
     window.addEventListener('keydown', (event) => {
       if (event.key === 'Escape') setNav(false);

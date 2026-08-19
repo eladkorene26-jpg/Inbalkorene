@@ -14,13 +14,22 @@
 html {
   color-scheme: dark;
   background: var(--stage);
-  overflow-x: hidden;
 }
 
 html, body {
   margin: 0;
   padding: 0;
-  overflow-x: hidden;
+}
+
+/* clip — not hidden — so we don't create a scroll containment that kills sticky */
+html {
+  overflow-x: clip;
+  overflow-y: scroll;
+}
+
+html.is-nav-locked,
+body.is-nav-locked {
+  overflow: hidden;
 }
 
 body {
@@ -116,8 +125,6 @@ a { color: inherit; }
 .brand img {
   height: 52px;
   width: auto;
-  filter: invert(1);
-  mix-blend-mode: screen;
 }
 
 .brand--footer img { height: 64px; }
@@ -247,22 +254,11 @@ p { margin: 0 0 1em; }
 .hero .plate-img { object-position: 28% 38%; }
 .about .plate-img { object-position: 62% 32%; }
 
-.hero .plate-veil {
-  background: linear-gradient(
-    to top,
-    rgba(11, 11, 11, 0.78) 0%,
-    rgba(11, 11, 11, 0.38) 42%,
-    rgba(11, 11, 11, 0.18) 100%
-  );
-}
-
+.hero .plate-veil,
 .about .plate-veil {
-  background: linear-gradient(
-    to top,
-    rgba(11, 11, 11, 0.8) 0%,
-    rgba(11, 11, 11, 0.42) 48%,
-    rgba(11, 11, 11, 0.2) 100%
-  );
+  background:
+    linear-gradient(to inline-end, rgba(11, 11, 11, 0.82) 0%, rgba(11, 11, 11, 0.5) 38%, rgba(11, 11, 11, 0.18) 68%, rgba(11, 11, 11, 0.08) 100%),
+    linear-gradient(to top, rgba(11, 11, 11, 0.58) 0%, rgba(11, 11, 11, 0.16) 46%, transparent 72%);
 }
 
 .plate-type {
@@ -308,7 +304,8 @@ p { margin: 0 0 1em; }
   position: sticky;
   top: 0;
   height: 100dvh;
-  overflow: hidden;
+  overflow-x: clip;
+  overflow-y: hidden;
   background: var(--stage);
 }
 
@@ -327,14 +324,31 @@ p { margin: 0 0 1em; }
   transform: scale(1);
   transform-origin: center;
   will-change: opacity, transform;
+  transition: opacity 0.45s ease;
 }
 
-.reel-plate:first-child { opacity: 1; }
+.reel[data-active="0"] .reel-plate:nth-child(1),
+.reel[data-active="0"] .beat:nth-child(1),
+.reel[data-active="1"] .reel-plate:nth-child(2),
+.reel[data-active="1"] .beat:nth-child(2),
+.reel[data-active="2"] .reel-plate:nth-child(3),
+.reel[data-active="2"] .beat:nth-child(3),
+.reel[data-active="3"] .reel-plate:nth-child(4),
+.reel[data-active="3"] .beat:nth-child(4),
+.reel[data-active="4"] .reel-plate:nth-child(5),
+.reel[data-active="4"] .beat:nth-child(5) {
+  opacity: 1;
+}
 
 .reel-veil {
   position: absolute;
   inset: 0;
-  background: var(--veil);
+  background: linear-gradient(
+    to inline-end,
+    rgba(0, 0, 0, 0.74) 0%,
+    rgba(0, 0, 0, 0.5) 42%,
+    rgba(0, 0, 0, 0.36) 100%
+  );
   pointer-events: none;
 }
 
@@ -372,9 +386,9 @@ p { margin: 0 0 1em; }
   inset-inline: 0;
   top: 0;
   opacity: 0;
+  transition: opacity 0.45s ease;
 }
 
-.beat:first-child { opacity: 1; }
 
 .beat p {
   color: var(--type);
@@ -601,32 +615,6 @@ blockquote footer {
       animation-range: cover;
     }
 
-    .reel--treatments {
-      view-timeline-name: --treatments;
-      view-timeline-axis: block;
-    }
-
-    .reel--quotes {
-      view-timeline-name: --quotes;
-      view-timeline-axis: block;
-    }
-
-    .reel--treatments .reel-plate:nth-child(1) { animation: plate-first linear both; animation-timeline: --treatments; animation-range: contain 0% contain 22%; }
-    .reel--treatments .reel-plate:nth-child(2) { animation: plate-mid linear both; animation-timeline: --treatments; animation-range: contain 18% contain 42%; }
-    .reel--treatments .reel-plate:nth-child(3) { animation: plate-mid linear both; animation-timeline: --treatments; animation-range: contain 38% contain 62%; }
-    .reel--treatments .reel-plate:nth-child(4) { animation: plate-mid linear both; animation-timeline: --treatments; animation-range: contain 58% contain 82%; }
-    .reel--treatments .reel-plate:nth-child(5) { animation: plate-last linear both; animation-timeline: --treatments; animation-range: contain 78% contain 100%; }
-
-    .reel--treatments .beat:nth-child(1) { animation: beat-first linear both; animation-timeline: --treatments; animation-range: contain 0% contain 22%; }
-    .reel--treatments .beat:nth-child(2) { animation: beat-mid linear both; animation-timeline: --treatments; animation-range: contain 18% contain 42%; }
-    .reel--treatments .beat:nth-child(3) { animation: beat-mid linear both; animation-timeline: --treatments; animation-range: contain 38% contain 62%; }
-    .reel--treatments .beat:nth-child(4) { animation: beat-mid linear both; animation-timeline: --treatments; animation-range: contain 58% contain 82%; }
-    .reel--treatments .beat:nth-child(5) { animation: beat-last linear both; animation-timeline: --treatments; animation-range: contain 78% contain 100%; }
-
-    .reel--quotes .beat:nth-child(1) { animation: beat-first linear both; animation-timeline: --quotes; animation-range: contain 0% contain 28%; }
-    .reel--quotes .beat:nth-child(2) { animation: beat-mid linear both; animation-timeline: --quotes; animation-range: contain 22% contain 53%; }
-    .reel--quotes .beat:nth-child(3) { animation: beat-mid linear both; animation-timeline: --quotes; animation-range: contain 47% contain 78%; }
-    .reel--quotes .beat:nth-child(4) { animation: beat-last linear both; animation-timeline: --quotes; animation-range: contain 72% contain 100%; }
   }
 }
 
@@ -640,76 +628,16 @@ blockquote footer {
   to { transform: translateY(-10vh); }
 }
 
-@keyframes plate-first {
-  0% { opacity: 1; transform: scale(1); }
-  88% { opacity: 1; }
-  100% { opacity: 0; transform: scale(1.08); }
-}
-
-@keyframes plate-mid {
-  0% { opacity: 0; transform: scale(1); }
-  12% { opacity: 1; }
-  88% { opacity: 1; }
-  100% { opacity: 0; transform: scale(1.08); }
-}
-
-@keyframes plate-last {
-  0% { opacity: 0; transform: scale(1); }
-  12% { opacity: 1; }
-  100% { opacity: 1; transform: scale(1.08); }
-}
-
-@keyframes beat-first {
-  0% { opacity: 1; }
-  88% { opacity: 1; }
-  100% { opacity: 0; }
-}
-
-@keyframes beat-mid {
-  0% { opacity: 0; }
-  12% { opacity: 1; }
-  88% { opacity: 1; }
-  100% { opacity: 0; }
-}
-
-@keyframes beat-last {
-  0% { opacity: 0; }
-  12% { opacity: 1; }
-  100% { opacity: 1; }
-}
-
-/* JS fallback when scroll-driven animations are missing */
-.no-sda .reel-plate,
-.no-sda .beat { opacity: 0; }
-
-.no-sda .reel[data-active="0"] .reel-plate:nth-child(1),
-.no-sda .reel[data-active="0"] .beat:nth-child(1),
-.no-sda .reel[data-active="1"] .reel-plate:nth-child(2),
-.no-sda .reel[data-active="1"] .beat:nth-child(2),
-.no-sda .reel[data-active="2"] .reel-plate:nth-child(3),
-.no-sda .reel[data-active="2"] .beat:nth-child(3),
-.no-sda .reel[data-active="3"] .reel-plate:nth-child(4),
-.no-sda .reel[data-active="3"] .beat:nth-child(4),
-.no-sda .reel[data-active="4"] .reel-plate:nth-child(5),
-.no-sda .reel[data-active="4"] .beat:nth-child(5) {
-  opacity: 1;
-}
-
 @media (prefers-reduced-motion: no-preference) {
-  .no-sda .reel-plate,
-  .no-sda .beat {
-    transition: opacity 0.45s ease;
-  }
-
   .no-sda .plate.is-view .plate-img {
     animation: kenburns 22s linear forwards;
   }
 
-  .no-sda .reel[data-active="0"] .reel-plate:nth-child(1),
-  .no-sda .reel[data-active="1"] .reel-plate:nth-child(2),
-  .no-sda .reel[data-active="2"] .reel-plate:nth-child(3),
-  .no-sda .reel[data-active="3"] .reel-plate:nth-child(4),
-  .no-sda .reel[data-active="4"] .reel-plate:nth-child(5) {
+  .reel[data-active="0"] .reel-plate:nth-child(1),
+  .reel[data-active="1"] .reel-plate:nth-child(2),
+  .reel[data-active="2"] .reel-plate:nth-child(3),
+  .reel[data-active="3"] .reel-plate:nth-child(4),
+  .reel[data-active="4"] .reel-plate:nth-child(5) {
     animation: kenburns 14s linear forwards;
   }
 }
