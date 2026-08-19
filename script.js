@@ -120,12 +120,13 @@
       if (message) text += '\nהודעה: ' + message;
       const url = 'https://wa.me/972545576117?text=' + encodeURIComponent(text);
       if (statusLink) statusLink.href = url;
-      const popup = window.open(url, '_blank', 'noopener,noreferrer');
-      if (!popup) {
-        if (status) status.hidden = false;
+      const popup = window.open(url, '_blank');
+      if (popup) {
+        try { popup.opener = null; } catch (err) { /* ignore */ }
+        if (status) status.hidden = true;
         return;
       }
-      if (status) status.hidden = true;
+      if (status) status.hidden = false;
     });
   }
 })();

@@ -232,7 +232,7 @@ p { margin: 0 0 1em; }
   inset-inline-end: var(--pad);
   inset-block-end: clamp(48px, 10vh, 96px);
   z-index: 2;
-  max-width: 18em;
+  max-width: min(38rem, 86vw);
 }
 
 .hero-ctas,
@@ -365,14 +365,14 @@ blockquote footer {
   display: flex;
   flex-direction: column;
   gap: 0.35em;
-  font-size: 0.78rem;
-  font-weight: 400;
+  font-size: 0.9rem;
+  font-weight: 500;
   font-variant-numeric: tabular-nums;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.08em;
   color: var(--muted);
 }
 
-.reel-index li { opacity: 0.34; }
+.reel-index li { opacity: 0.5; }
 .reel-index li[aria-current="true"] {
   opacity: 1;
   color: var(--type);
@@ -420,6 +420,11 @@ blockquote footer {
 .hours dd {
   margin: 0;
   font-weight: 500;
+}
+
+.hours dd[dir="ltr"] {
+  unicode-bidi: isolate;
+  text-align: end;
 }
 
 .map-wrap {
