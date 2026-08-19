@@ -358,6 +358,7 @@ p { margin: 0 0 1em; }
 .reel-plates {
   position: absolute;
   inset: 0;
+  z-index: 1; /* trap plate z-index 2/3 from JS so type stays above */
 }
 
 .reel-plate {
@@ -430,7 +431,7 @@ p { margin: 0 0 1em; }
 
 .reel-copy {
   position: absolute;
-  z-index: 2;
+  z-index: 4;
   inset-inline-start: var(--pad);
   inset-inline-end: clamp(72px, 18vw, 160px);
   inset-block-end: clamp(56px, 12vh, 110px);
@@ -520,7 +521,7 @@ blockquote footer {
 
 .reel-index {
   position: absolute;
-  z-index: 3;
+  z-index: 5;
   inset-inline-start: var(--pad);
   top: 50%;
   transform: translateY(-50%);
