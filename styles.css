@@ -129,23 +129,32 @@ a { color: inherit; }
 .chapter,
 .reel { scroll-margin-top: 72px; }
 
-/* Existing PNG lockup — paper chip only, no invert / mix-blend / black box */
+/* Existing PNG lockup — paper chip only, no invert / mix-blend / black box.
+   The PNG is a 1300² square with ~28% empty white on each side; crop to the ink. */
 .brand {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
   background: var(--paper);
-  padding: 9px;
+  padding: 6px;
   border-radius: 2px;
   line-height: 0;
 }
 
 .brand img {
   height: 88px;
-  width: auto;
+  width: 88px;
+  object-fit: cover;
+  object-position: 50% 50%;
+  transform: scale(1.92);
+  transform-origin: center;
 }
 
-.brand--footer img { height: 72px; }
+.brand--footer img {
+  height: 72px;
+  width: 72px;
+}
 
 /* Buttons */
 .btn {
@@ -401,12 +410,23 @@ p { margin: 0 0 1em; }
 .crop-hair-hand { object-position: 80% 18%; transform-origin: 80% 18%; }
 .crop-wider { object-position: 46% 52%; transform-origin: 46% 52%; }
 
-/* Treatment stills are device plates — keep quote portrait crops untouched. */
-.reel--treatments .crop-face-right { object-position: 68% 40%; transform-origin: 68% 40%; }
-.reel--treatments .crop-tight { object-position: 50% 36%; transform-origin: 50% 36%; }
-.reel--treatments .crop-flowers { object-position: 42% 58%; transform-origin: 42% 58%; }
-.reel--treatments .crop-hair-hand { object-position: 56% 46%; transform-origin: 56% 46%; }
-.reel--treatments .crop-wider { object-position: 50% 38%; transform-origin: 50% 38%; }
+/* Venus plates: full handle in the black field. Quotes keep cover crops. */
+.reel--treatments .reel-plate {
+  object-fit: contain;
+  object-position: center;
+  transform-origin: center;
+  padding: 8vh 7vw;
+  background: transparent;
+}
+
+.reel--treatments .crop-face-right,
+.reel--treatments .crop-tight,
+.reel--treatments .crop-flowers,
+.reel--treatments .crop-hair-hand,
+.reel--treatments .crop-wider {
+  object-position: center;
+  transform-origin: center;
+}
 
 .reel-copy {
   position: absolute;
@@ -784,6 +804,12 @@ blockquote footer {
     margin-bottom: 1.2rem;
   }
 
+  .reel--treatments .beat-still {
+    object-fit: contain;
+    object-position: center;
+    background: var(--stage);
+  }
+
   .reel-index { display: none; }
 }
 
@@ -816,8 +842,8 @@ blockquote footer {
 }
 
 @media (max-width: 720px) {
-  .brand img { height: 64px; }
-  .brand { padding: 8px; }
+  .brand img { height: 64px; width: 64px; }
+  .brand { padding: 5px; }
   .site-header {
     padding-bottom: 36px;
     background: linear-gradient(to bottom, rgba(11, 11, 11, 0.94) 0%, rgba(11, 11, 11, 0.62) 70%, rgba(11, 11, 11, 0) 100%);
