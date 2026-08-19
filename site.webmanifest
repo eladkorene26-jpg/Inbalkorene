@@ -7,8 +7,8 @@
   ],
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#B76E79",
+  "background_color": "#F7F4F1",
+  "theme_color": "#1A1A1A",
   "dir": "rtl",
   "lang": "he"
 }
