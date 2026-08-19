@@ -2,7 +2,7 @@
   --stage: #0B0B0B;
   --type: #F4F0EA;
   --muted: #A39C94;
-  --veil: rgba(0, 0, 0, 0.48);
+  --veil: rgba(0, 0, 0, 0.5);
   --line: rgba(244, 240, 234, 0.22);
   --pad: clamp(20px, 5vw, 72px);
 }
@@ -19,6 +19,7 @@ html {
 html, body {
   margin: 0;
   padding: 0;
+  overflow-x: hidden;
 }
 
 body {
@@ -110,6 +111,7 @@ a { color: inherit; }
   border-color: rgba(244, 240, 234, 0.42);
 }
 
+/* Accent is off-white fill — hero תאמי תור only. Not #B76E79. */
 .btn-accent {
   background: var(--type);
   color: var(--stage);
@@ -132,8 +134,9 @@ h1, h2, h3 {
 }
 
 .hero h1 {
-  font-size: clamp(2.4rem, 7.4vw, 6.4rem);
+  font-size: clamp(2.4rem, 7.4vw, 5.5rem);
   max-width: 16ch;
+  padding-inline: 20px;
 }
 
 .about h2,
@@ -254,10 +257,15 @@ p { margin: 0 0 1em; }
   transition: opacity 0.85s ease, transform 0.85s ease;
 }
 
-/* Pinned reels — tall scroll, 100dvh sticky stage */
+/* Pinned reels — sticky 100dvh stage; treatments travel ~130vh per beat */
 .reel {
+  --beat-travel: 100dvh;
   position: relative;
-  height: calc((var(--beats) + 1) * 100dvh);
+  height: calc(var(--beats) * var(--beat-travel) + 100dvh);
+}
+
+.reel--treatments {
+  --beat-travel: 130vh;
 }
 
 .reel-stage {
@@ -290,9 +298,15 @@ p { margin: 0 0 1em; }
 .reel-veil {
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.48);
+  background: var(--veil);
   pointer-events: none;
 }
+
+.crop-face-right { object-position: 18% 28%; transform-origin: 18% 28%; }
+.crop-tight { object-position: 58% 30%; transform-origin: 58% 30%; }
+.crop-flowers { object-position: 48% 90%; transform-origin: 48% 90%; }
+.crop-hair-hand { object-position: 80% 18%; transform-origin: 80% 18%; }
+.crop-wider { object-position: 46% 52%; transform-origin: 46% 52%; }
 
 .reel-copy {
   position: absolute;
