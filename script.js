@@ -96,6 +96,27 @@
     syncReels();
   });
 
+  const nav = document.getElementById('site-nav');
+  const navBtn = document.querySelector('.nav-toggle');
+  const header = document.querySelector('.site-header');
+  function setNav(open) {
+    if (!nav || !navBtn) return;
+    navBtn.setAttribute('aria-expanded', String(open));
+    navBtn.textContent = open ? 'סגור' : 'פתח';
+    if (header) header.classList.toggle('is-nav-open', open);
+  }
+  if (navBtn && nav) {
+    navBtn.addEventListener('click', () => {
+      setNav(navBtn.getAttribute('aria-expanded') !== 'true');
+    });
+    nav.addEventListener('click', (event) => {
+      if (event.target.closest('a[href^="#"]')) setNav(false);
+    });
+    window.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') setNav(false);
+    });
+  }
+
   const form = document.getElementById('lead-form');
   if (form) {
     const status = form.querySelector('.form-status');
@@ -104,11 +125,6 @@
       event.preventDefault();
       const name = String(form.name.value || '').trim();
       const phone = String(form.phone.value || '').trim();
-      if (!name) {
-        form.name.reportValidity();
-        form.name.focus();
-        return;
-      }
       if (!phone) {
         form.phone.reportValidity();
         form.phone.focus();
@@ -116,7 +132,8 @@
       }
       const treatment = String(form.treatment.value || '').trim();
       const message = String(form.message.value || '').trim();
-      let text = 'היי עינבל, רציתי לקבוע תור\nשם: ' + name + '\nטלפון: ' + phone + '\nטיפול: ' + treatment;
+      let text = 'היי עינבל, רציתי לקבוע תור\nטלפון: ' + phone + '\nטיפול: ' + treatment;
+      if (name) text = 'היי עינבל, רציתי לקבוע תור\nשם: ' + name + '\nטלפון: ' + phone + '\nטיפול: ' + treatment;
       if (message) text += '\nהודעה: ' + message;
       const url = 'https://wa.me/972545576117?text=' + encodeURIComponent(text);
       if (statusLink) statusLink.href = url;

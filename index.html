@@ -24,7 +24,15 @@
     <a class="brand" href="#home" aria-label="דף הבית">
       <img src="assets/logo-inbal.png" alt="Inbal Korene Logo" width="1300" height="1300" />
     </a>
-    <a class="btn btn-ghost" href="https://wa.me/972545576117?text=%D7%94%D7%99%D7%99%20%D7%A2%D7%99%D7%A0%D7%91%D7%9C%2C%20%D7%A8%D7%A6%D7%99%D7%AA%D7%99%20%D7%9C%D7%A7%D7%91%D7%95%D7%A2%20%D7%AA%D7%95%D7%A8" target="_blank" rel="noopener nofollow">תאמי תור</a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">פתח</button>
+    <nav id="site-nav" class="site-nav" aria-label="פרקים">
+      <a href="#treatments">טיפולים</a>
+      <a href="#about">עליי</a>
+      <a href="#testimonials">ממליצות</a>
+      <a href="#visit">הגעה</a>
+      <a href="#lead">פנייה</a>
+    </nav>
+    <a class="btn btn-ghost header-cta" href="https://wa.me/972545576117?text=%D7%94%D7%99%D7%99%20%D7%A2%D7%99%D7%A0%D7%91%D7%9C%2C%20%D7%A8%D7%A6%D7%99%D7%AA%D7%99%20%D7%9C%D7%A7%D7%91%D7%95%D7%A2%20%D7%AA%D7%95%D7%A8" target="_blank" rel="noopener nofollow">תאמי תור</a>
   </header>
 
   <main>
@@ -33,7 +41,7 @@
         <img
           class="plate-img"
           src="assets/inbal-hero.jpg"
-          alt="עינבל קורן בקליניקה – תמונת הירו"
+          alt="עינבל קורן – בקליניקה"
           width="1365"
           height="2048"
           fetchpriority="high"
@@ -200,9 +208,6 @@
             title="מפה – נווה זיו"
             aria-label="מפת הגעה">
           </iframe>
-          <p class="map-fallback">
-            <a href="https://maps.google.com/?q=%D7%93%D7%A8%D7%9A%20%D7%94%D7%A4%D7%90%D7%A8%D7%A7%2013%2C%20%D7%A0%D7%95%D7%95%D7%94%20%D7%96%D7%99%D7%95" target="_blank" rel="noopener">פתחי מפה בחלון חדש</a>
-          </p>
         </div>
       </div>
     </section>
@@ -213,7 +218,7 @@
         <form id="lead-form" class="lead-form reveal" novalidate>
           <label>
             <span>שם</span>
-            <input type="text" name="name" autocomplete="name" required>
+            <input type="text" name="name" autocomplete="name">
           </label>
           <label>
             <span>טלפון</span>
@@ -227,7 +232,7 @@
               <option>גלו-האנדל</option>
               <option>הצרת נקבוביות</option>
               <option>הסרת שיער בלייזר</option>
-              <option>לא בטוחה</option>
+              <option selected>לא בטוחה</option>
             </select>
           </label>
           <label>
