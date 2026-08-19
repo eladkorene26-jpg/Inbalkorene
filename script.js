@@ -27,7 +27,20 @@
     nodes.forEach((el) => io.observe(el));
   }
 
-  function setBeat(reel, index) {
+  /* Crossfade occupies ~30% of each beat so plates/titles dissolve, never snap. */
+  const BEAT_OVERLAP = 0.3;
+
+  function clearReelMotion() {
+    document.querySelectorAll('.reel-plate, .beat').forEach((el) => {
+      el.style.opacity = '';
+      el.style.transform = '';
+      el.style.visibility = '';
+      el.style.pointerEvents = '';
+      el.style.zIndex = '';
+    });
+  }
+
+  function setIndex(reel, index) {
     const beats = Number(reel.dataset.beats || 1);
     const next = Math.max(0, Math.min(beats - 1, index));
     if (reel.dataset.active === String(next)) return;
@@ -38,17 +51,63 @@
     });
   }
 
+  function beatOpacity(t, i, n, overlap) {
+    const half = overlap / 2;
+    const fadeInStart = i === 0 ? 0 : i - half;
+    const fadeInEnd = i === 0 ? 0 : i + half;
+    const fadeOutStart = i === n - 1 ? n : i + 1 - half;
+    const fadeOutEnd = i === n - 1 ? n : i + 1 + half;
+    if (t < fadeInStart || t > fadeOutEnd) return 0;
+    if (t >= fadeInEnd && t <= fadeOutStart) return 1;
+    if (t < fadeInEnd) {
+      const span = fadeInEnd - fadeInStart;
+      return span <= 0 ? 1 : (t - fadeInStart) / span;
+    }
+    const span = fadeOutEnd - fadeOutStart;
+    return span <= 0 ? 1 : (fadeOutEnd - t) / span;
+  }
+
+  function beatScale(t, i, n, overlap) {
+    const half = overlap / 2;
+    const visStart = i === 0 ? 0 : i - half;
+    const visEnd = i === n - 1 ? n : i + 1 + half;
+    const span = visEnd - visStart;
+    const u = span <= 0 ? 0 : Math.min(1, Math.max(0, (t - visStart) / span));
+    return 1 + 0.08 * u;
+  }
+
+  function paintLayer(el, opacity, scale, onTop) {
+    const show = opacity > 0.01;
+    el.style.opacity = String(opacity);
+    el.style.visibility = show ? 'visible' : 'hidden';
+    el.style.pointerEvents = opacity >= 0.5 ? 'auto' : 'none';
+    el.style.zIndex = show ? String(onTop ? 3 : 2) : '0';
+    if (scale == null) return;
+    el.style.transform = 'scale(' + scale + ')';
+  }
+
   function syncReels() {
     if (reduceMq.matches) return;
     document.querySelectorAll('.reel').forEach((reel) => {
       const beats = Number(reel.dataset.beats || 1);
       const span = reel.offsetHeight - window.innerHeight;
-      if (span <= 0) {
-        setBeat(reel, 0);
-        return;
-      }
-      const progress = Math.min(0.999, Math.max(0, -reel.getBoundingClientRect().top / span));
-      setBeat(reel, Math.floor(progress * beats));
+      const progress = span <= 0
+        ? 0
+        : Math.min(1, Math.max(0, -reel.getBoundingClientRect().top / span));
+      const t = progress * beats;
+      const nearest = Math.min(beats - 1, Math.max(0, Math.round(t - 0.5)));
+      setIndex(reel, nearest);
+
+      const titles = reel.querySelectorAll('.beats .beat');
+      titles.forEach((el, i) => {
+        paintLayer(el, beatOpacity(t, i, beats, BEAT_OVERLAP), null, i === nearest);
+      });
+
+      const plates = reel.querySelectorAll('.reel-plates .reel-plate');
+      if (plates.length !== beats) return;
+      plates.forEach((el, i) => {
+        paintLayer(el, beatOpacity(t, i, beats, BEAT_OVERLAP), beatScale(t, i, beats, BEAT_OVERLAP), i === nearest);
+      });
     });
   }
 
@@ -92,6 +151,7 @@
   window.addEventListener('resize', onScroll, { passive: true });
   reduceMq.addEventListener('change', () => {
     document.querySelectorAll('.plate-type').forEach((el) => { el.style.transform = ''; });
+    clearReelMotion();
     revealOnce();
     syncReels();
   });
