@@ -1,7 +1,9 @@
 :root {
   --stage: #0B0B0B;
   --type: #F4F0EA;
+  --paper: #F4F0EA;
   --muted: #A39C94;
+  --eyebrow: rgba(244, 240, 234, 0.85);
   --veil: rgba(0, 0, 0, 0.5);
   --line: rgba(244, 240, 234, 0.22);
   --pad: clamp(20px, 5vw, 72px);
@@ -80,8 +82,8 @@ a { color: inherit; }
   display: flex;
   align-items: center;
   gap: 16px;
-  padding: calc(10px + env(safe-area-inset-top)) var(--pad) 14px;
-  background: linear-gradient(to bottom, rgba(11, 11, 11, 0.72), rgba(11, 11, 11, 0));
+  padding: calc(10px + env(safe-area-inset-top)) var(--pad) 28px;
+  background: linear-gradient(to bottom, rgba(11, 11, 11, 0.88) 0%, rgba(11, 11, 11, 0.42) 62%, rgba(11, 11, 11, 0) 100%);
   pointer-events: none;
 }
 
@@ -96,6 +98,9 @@ a { color: inherit; }
 }
 
 .site-nav a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
   text-decoration: none;
   color: var(--type);
   font-weight: 400;
@@ -108,9 +113,11 @@ a { color: inherit; }
 .nav-toggle {
   display: none;
   margin-inline-start: auto;
+  min-height: 44px;
+  min-width: 44px;
   padding: 0.55em 0.9em;
   border: 1px solid rgba(244, 240, 234, 0.42);
-  background: transparent;
+  background: rgba(11, 11, 11, 0.82);
   color: var(--type);
   font: inherit;
   font-weight: 500;
@@ -122,18 +129,39 @@ a { color: inherit; }
 .chapter,
 .reel { scroll-margin-top: 72px; }
 
-.brand img {
-  height: 52px;
-  width: auto;
+/* Existing PNG lockup — paper chip only, no invert / mix-blend / black box.
+   The PNG is a 1300² square with ~28% empty white on each side; crop to the ink. */
+.brand {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: var(--paper);
+  padding: 6px;
+  border-radius: 2px;
+  line-height: 0;
 }
 
-.brand--footer img { height: 64px; }
+.brand img {
+  height: 88px;
+  width: 88px;
+  object-fit: cover;
+  object-position: 50% 50%;
+  transform: scale(1.92);
+  transform-origin: center;
+}
+
+.brand--footer img {
+  height: 72px;
+  width: 72px;
+}
 
 /* Buttons */
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  min-height: 44px;
   padding: 0.85em 1.35em;
   border-radius: 0;
   font: inherit;
@@ -198,7 +226,7 @@ h1, h2, h3 {
   font-size: 0.28em;
   font-weight: 400;
   letter-spacing: 0.04em;
-  color: var(--muted);
+  color: var(--eyebrow);
 }
 
 .reel-kicker {
@@ -207,7 +235,7 @@ h1, h2, h3 {
   font-weight: 500;
   letter-spacing: 0.16em;
   text-transform: none;
-  color: var(--muted);
+  color: var(--eyebrow);
 }
 
 .about h2.reel-kicker,
@@ -215,7 +243,7 @@ h2.reel-kicker {
   font-size: clamp(0.78rem, 1.4vw, 0.92rem);
   font-weight: 500;
   letter-spacing: 0.16em;
-  color: var(--muted);
+  color: var(--eyebrow);
 }
 
 p { margin: 0 0 1em; }
@@ -330,6 +358,7 @@ p { margin: 0 0 1em; }
 .reel-plates {
   position: absolute;
   inset: 0;
+  z-index: 1; /* trap plate z-index 2/3 from JS so type stays above */
 }
 
 .reel-plate {
@@ -346,20 +375,21 @@ p { margin: 0 0 1em; }
   transition: none;
 }
 
-.reel[data-active="0"] .reel-plate:nth-child(1),
-.reel[data-active="0"] .beat:nth-child(1),
-.reel[data-active="1"] .reel-plate:nth-child(2),
-.reel[data-active="1"] .beat:nth-child(2),
-.reel[data-active="2"] .reel-plate:nth-child(3),
-.reel[data-active="2"] .beat:nth-child(3),
-.reel[data-active="3"] .reel-plate:nth-child(4),
-.reel[data-active="3"] .beat:nth-child(4),
-.reel[data-active="4"] .reel-plate:nth-child(5),
-.reel[data-active="4"] .beat:nth-child(5) {
+/* First paint before JS: אנטי-אייג'ינג. Scroll then dissolves — no data-active snaps. */
+.reel--treatments .reel-plate:first-child,
+.beats .beat:first-child {
   opacity: 1;
   visibility: visible;
   z-index: 2;
   pointer-events: auto;
+}
+
+/* Quotes: one existing portrait at 15% to tighten empty black. No new photos. */
+.reel--quotes .reel-plate {
+  opacity: 0.15;
+  visibility: visible;
+  transform: none;
+  will-change: auto;
 }
 
 .reel-veil {
@@ -381,9 +411,35 @@ p { margin: 0 0 1em; }
 .crop-hair-hand { object-position: 80% 18%; transform-origin: 80% 18%; }
 .crop-wider { object-position: 46% 52%; transform-origin: 46% 52%; }
 
+/* Venus plates: full handle in the black field. Quotes keep cover crops. */
+.reel--treatments .reel-plate {
+  object-fit: contain;
+  object-position: center;
+  transform-origin: center;
+  padding: 8vh 7vw;
+  background: transparent;
+}
+
+.reel--treatments .crop-face-right,
+.reel--treatments .crop-tight,
+.reel--treatments .crop-flowers,
+.reel--treatments .crop-hair-hand,
+.reel--treatments .crop-wider {
+  object-position: center;
+  transform-origin: center;
+}
+
+/* DiamondPolar (anti-aging + glow): sit the handle toward the end, away from RTL type. */
+.reel--treatments .crop-face-right,
+.reel--treatments .crop-flowers {
+  object-position: 8% 50%;
+  padding-inline-start: 20vw;
+  padding-inline-end: 4vw;
+}
+
 .reel-copy {
   position: absolute;
-  z-index: 2;
+  z-index: 4;
   inset-inline-start: var(--pad);
   inset-inline-end: clamp(72px, 18vw, 160px);
   inset-block-end: clamp(56px, 12vh, 110px);
@@ -408,10 +464,21 @@ p { margin: 0 0 1em; }
 }
 
 .reel-copy--quote {
-  inset-block-end: auto;
-  top: 50%;
-  transform: translateY(-50%);
-  max-width: 18em;
+  inset: 0;
+  inset-inline: var(--pad);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  max-width: none;
+  transform: none;
+  padding-inline-start: 0;
+}
+
+.reel-copy--quote .reel-kicker,
+.reel-copy--quote .beats {
+  width: min(20em, 100%);
 }
 
 .beats {
@@ -419,7 +486,7 @@ p { margin: 0 0 1em; }
   min-height: 14.5em;
 }
 
-.reel-copy--quote .beats { min-height: 13em; }
+.reel-copy--quote .beats { min-height: 11em; }
 
 .beat {
   position: absolute;
@@ -449,6 +516,7 @@ blockquote p {
   font-weight: 500;
   line-height: 1.25;
   max-width: 16ch;
+  margin-inline: auto;
   color: var(--type);
 }
 
@@ -461,7 +529,7 @@ blockquote footer {
 
 .reel-index {
   position: absolute;
-  z-index: 3;
+  z-index: 5;
   inset-inline-start: var(--pad);
   top: 50%;
   transform: translateY(-50%);
@@ -478,13 +546,21 @@ blockquote footer {
   color: var(--muted);
 }
 
-.reel-index li { opacity: 0.5; }
+.reel-index li {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
+  opacity: 0.5;
+}
 .reel-index li[aria-current="true"] {
   opacity: 1;
   color: var(--type);
 }
 
 .reel-copy { padding-inline-start: 2.2em; }
+.reel-copy--quote { padding-inline-start: 0; }
 
 /* Visit + lead chapters */
 .chapter.visit,
@@ -674,14 +750,6 @@ blockquote footer {
   .no-sda .plate.is-view .plate-img {
     animation: kenburns 22s linear forwards;
   }
-
-  .reel[data-active="0"] .reel-plate:nth-child(1),
-  .reel[data-active="1"] .reel-plate:nth-child(2),
-  .reel[data-active="2"] .reel-plate:nth-child(3),
-  .reel[data-active="3"] .reel-plate:nth-child(4),
-  .reel[data-active="4"] .reel-plate:nth-child(5) {
-    animation: kenburns 14s linear forwards;
-  }
 }
 
 /* Reduced motion: static chapters, stacked reels, no Ken Burns / parallax / reveal */
@@ -745,11 +813,25 @@ blockquote footer {
     margin-bottom: 1.2rem;
   }
 
+  .reel--treatments .beat-still {
+    object-fit: contain;
+    object-position: center;
+    background: var(--stage);
+  }
+
   .reel-index { display: none; }
 }
 
 @media (max-width: 900px) {
-  .nav-toggle { display: inline-flex; }
+  .nav-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .header-cta,
+  .nav-toggle {
+    background: rgba(11, 11, 11, 0.86);
+  }
   .site-nav {
     display: none;
     position: absolute;
@@ -769,11 +851,25 @@ blockquote footer {
 }
 
 @media (max-width: 720px) {
-  .brand img { height: 44px; }
+  .brand img { height: 64px; width: 64px; }
+  .brand { padding: 5px; }
+  .site-header {
+    padding-bottom: 36px;
+    background: linear-gradient(to bottom, rgba(11, 11, 11, 0.94) 0%, rgba(11, 11, 11, 0.62) 70%, rgba(11, 11, 11, 0) 100%);
+  }
   .site-header .btn,
-  .nav-toggle { padding: 0.65em 0.95em; font-size: 0.88rem; }
+  .nav-toggle {
+    min-height: 44px;
+    padding: 0.65em 0.95em;
+    font-size: 0.88rem;
+    background: rgba(11, 11, 11, 0.86);
+  }
+  .header-cta {
+    border-color: rgba(244, 240, 234, 0.42);
+  }
   .plate-type { max-width: 22em; }
   .reel-index { top: auto; bottom: 22px; transform: none; flex-direction: row; gap: 0.85em; }
   .reel-copy { padding-inline-start: 0; inset-inline-end: var(--pad); }
+  .reel-copy--quote { padding-block: 96px 72px; }
   .hours div { grid-template-columns: 1fr auto; }
 }
