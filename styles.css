@@ -429,6 +429,14 @@ p { margin: 0 0 1em; }
   transform-origin: center;
 }
 
+/* DiamondPolar (anti-aging + glow): sit the handle toward the end, away from RTL type. */
+.reel--treatments .crop-face-right,
+.reel--treatments .crop-flowers {
+  object-position: 8% 50%;
+  padding-inline-start: 20vw;
+  padding-inline-end: 4vw;
+}
+
 .reel-copy {
   position: absolute;
   z-index: 4;

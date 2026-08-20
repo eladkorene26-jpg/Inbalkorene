@@ -27,7 +27,7 @@
     nodes.forEach((el) => io.observe(el));
   }
 
-  /* Crossfade occupies ~30% of each beat so plates/titles dissolve, never snap. */
+  /* Plates crossfade across ~30% of each beat. Treatment titles hard-cut. */
   const BEAT_OVERLAP = 0.3;
 
   function clearReelMotion() {
@@ -99,8 +99,12 @@
       setIndex(reel, nearest);
 
       const titles = reel.querySelectorAll('.beats .beat');
+      const cutTitles = reel.classList.contains('reel--treatments');
       titles.forEach((el, i) => {
-        paintLayer(el, beatOpacity(t, i, beats, BEAT_OVERLAP), null, i === nearest);
+        const opacity = cutTitles
+          ? (i === nearest ? 1 : 0)
+          : beatOpacity(t, i, beats, BEAT_OVERLAP);
+        paintLayer(el, opacity, null, i === nearest);
       });
 
       const plates = reel.querySelectorAll('.reel-plates .reel-plate');
