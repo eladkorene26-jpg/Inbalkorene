@@ -1,5 +1,5 @@
 :root {
-  --stage: #0B0B0B;
+  --stage: #060403;
   --type: #F4F0EA;
   --paper: #F4F0EA;
   --muted: #A39C94;
@@ -32,6 +32,27 @@ html {
 html.is-nav-locked,
 body.is-nav-locked {
   overflow: hidden;
+}
+
+html.is-booting {
+  overflow: hidden;
+}
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis:not(.lenis-autoToggle).lenis-stopped {
+  overflow: clip;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
 }
 
 body {
@@ -189,6 +210,13 @@ a { color: inherit; }
   font-weight: 700;
 }
 
+.btn-accent:hover,
+.btn-accent:focus-visible {
+  background: var(--type);
+  color: var(--stage);
+  border-color: var(--type);
+}
+
 .btn-primary {
   background: transparent;
   color: var(--type);
@@ -218,6 +246,15 @@ h1, h2, h3 {
 
 .beat h3 {
   font-size: clamp(2rem, 5.6vw, 4.8rem);
+}
+
+.cut-title,
+.cut-title .split-clip,
+.cut-title .split-word {
+  white-space: nowrap;
+  hyphens: none;
+  overflow-wrap: normal;
+  word-break: keep-all;
 }
 
 .beat h3 small {
@@ -429,12 +466,13 @@ p { margin: 0 0 1em; }
   transform-origin: center;
 }
 
-/* DiamondPolar (anti-aging + glow): sit the handle toward the end, away from RTL type. */
+/* DiamondPolar (anti-aging + glow): contain the full handle, off the RTL type. */
 .reel--treatments .crop-face-right,
 .reel--treatments .crop-flowers {
-  object-position: 8% 50%;
-  padding-inline-start: 20vw;
-  padding-inline-end: 4vw;
+  object-position: center;
+  padding-inline-start: 24vw;
+  padding-inline-end: 10vw;
+  padding-block: 9vh;
 }
 
 .reel-copy {
@@ -445,6 +483,11 @@ p { margin: 0 0 1em; }
   inset-block-end: clamp(56px, 12vh, 110px);
   max-width: 22em;
   isolation: isolate;
+}
+
+/* Lift treatment type so the beat CTA stays on a 900px-tall stage. */
+.reel--treatments .reel-copy {
+  inset-block-end: clamp(80px, 16vh, 148px);
 }
 
 .reel--treatments .reel-copy::before {
@@ -484,6 +527,10 @@ p { margin: 0 0 1em; }
 .beats {
   position: relative;
   min-height: 14.5em;
+}
+
+.reel--treatments .beats {
+  min-height: 18em;
 }
 
 .reel-copy--quote .beats { min-height: 11em; }
@@ -718,10 +765,107 @@ blockquote footer {
 .container,
 .narrow { width: min(720px, 92%); margin-inline: auto; }
 
-/* Scroll-driven motion */
+/* Session loader: existing logo chip + 1px hairline. No wordmark / % / 3D. */
+.film-loader {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 160;
+  place-items: center;
+  background: #060403;
+  pointer-events: none;
+}
+
+html.is-booting .film-loader {
+  display: grid;
+}
+
+.film-loader.is-exiting {
+  opacity: 0;
+  transition: opacity 200ms linear;
+}
+
+.film-loader-inner {
+  display: grid;
+  justify-items: center;
+  gap: 22px;
+}
+
+.film-loader-brand {
+  pointer-events: none;
+  padding: 6px;
+}
+
+.film-loader-brand img {
+  height: 96px;
+  width: 96px;
+}
+
+.film-loader-hairline {
+  width: 80px;
+  height: 1px;
+  background: rgba(244, 240, 234, 0.18);
+  overflow: hidden;
+}
+
+.film-loader-hairline span {
+  display: block;
+  width: 100%;
+  height: 1px;
+  background: var(--type);
+  transform: scaleX(0);
+  transform-origin: right center;
+}
+
+html.is-booting .film-loader-hairline span {
+  animation: hair-fill 1.15s ease-out forwards;
+}
+
+@keyframes hair-fill {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+/* Hero → treatments scripted cut */
+.film-cut {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: #060403;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.film-cut.is-on {
+  opacity: 1;
+}
+
+/* SplitType clip wrappers — H1 + treatment titles only */
+.split-clip {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+}
+
+.split-word {
+  display: inline-block;
+  will-change: transform;
+}
+
+/* Other chapter edges: 80ms opacity, no extra black */
+.edge-cut {
+  animation: edge-cut 80ms linear;
+}
+
+@keyframes edge-cut {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Scroll-driven motion — Ken Burns starts after loader (html.is-ready) */
 @supports (animation-timeline: view()) {
   @media (prefers-reduced-motion: no-preference) {
-    .plate-img {
+    html.is-ready .plate-img {
       animation: kenburns linear both;
       animation-timeline: view();
       animation-range: cover;
@@ -747,7 +891,7 @@ blockquote footer {
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .no-sda .plate.is-view .plate-img {
+  html.is-ready .no-sda .plate.is-view .plate-img {
     animation: kenburns 22s linear forwards;
   }
 }
@@ -820,6 +964,27 @@ blockquote footer {
   }
 
   .reel-index { display: none; }
+
+  .film-loader,
+  .film-cut {
+    display: none !important;
+    opacity: 0 !important;
+  }
+
+  html.is-booting {
+    overflow: unset;
+  }
+
+  .split-clip,
+  .split-word {
+    display: inline;
+    overflow: visible;
+    transform: none !important;
+  }
+
+  .edge-cut {
+    animation: none;
+  }
 }
 
 @media (max-width: 900px) {
@@ -852,6 +1017,7 @@ blockquote footer {
 
 @media (max-width: 720px) {
   .brand img { height: 64px; width: 64px; }
+  .film-loader-brand img { height: 88px; width: 88px; }
   .brand { padding: 5px; }
   .site-header {
     padding-bottom: 36px;
