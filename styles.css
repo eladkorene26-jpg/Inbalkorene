@@ -457,13 +457,13 @@ p { margin: 0 0 1em; }
   transform-origin: center;
 }
 
-/* DiamondPolar (anti-aging + glow): sit the handle toward the end, away from RTL type. */
+/* DiamondPolar (anti-aging + glow): contain the full handle, off the RTL type. */
 .reel--treatments .crop-face-right,
 .reel--treatments .crop-flowers {
-  object-position: 0% 52%;
-  padding-inline-start: 30vw;
-  padding-inline-end: 3vw;
-  padding-block: 10vh;
+  object-position: center;
+  padding-inline-start: 24vw;
+  padding-inline-end: 10vw;
+  padding-block: 9vh;
 }
 
 .reel-copy {
@@ -775,16 +775,16 @@ html.is-booting .film-loader {
 
 .film-loader-brand {
   pointer-events: none;
-  padding: 10px;
+  padding: 8px;
 }
 
 .film-loader-brand img {
-  height: 168px;
-  width: 168px;
+  height: 104px;
+  width: 104px;
 }
 
 .film-loader-hairline {
-  width: 112px;
+  width: 80px;
   height: 1px;
   background: rgba(244, 240, 234, 0.18);
   overflow: hidden;
@@ -999,7 +999,7 @@ html.is-booting .film-loader-hairline span {
 
 @media (max-width: 720px) {
   .brand img { height: 64px; width: 64px; }
-  .film-loader-brand img { height: 136px; width: 136px; }
+  .film-loader-brand img { height: 96px; width: 96px; }
   .brand { padding: 5px; }
   .site-header {
     padding-bottom: 36px;
