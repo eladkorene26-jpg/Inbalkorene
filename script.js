@@ -10,12 +10,12 @@
   const LOADER_KEY = 'ik-loader';
   const LOADER_MS = 1150;
   const LOADER_FADE_MS = 200;
-  const HERO_CUT_MS = 160;
+  const REEL_PIN_CUT_MS = 160;
 
   let lenis = null;
   let magnetCleanup = null;
-  let heroCutDone = false;
-  let heroCutPlayed = false;
+  let reelPinCutDone = false;
+  let reelPinCutPlayed = false;
   let lastTreatmentTitle = -1;
   let motionStarted = false;
 
@@ -153,7 +153,7 @@
   function playIncomingTreatmentTitle(titles, nearest) {
     if (reduceMq.matches) return;
     if (nearest === lastTreatmentTitle) return;
-    if (nearest === 0 && !heroCutDone) return;
+    if (nearest === 0 && !reelPinCutDone) return;
     lastTreatmentTitle = nearest;
     const beat = titles[nearest];
     const target = beat && beat.querySelector('.cut-title');
@@ -166,14 +166,15 @@
     return stage.getBoundingClientRect().top <= 1;
   }
 
-  function playHeroToReelCut() {
-    if (heroCutPlayed || reduceMq.matches) return;
-    heroCutPlayed = true;
+  /* 160ms #060403 dip when the treatments reel first pins — not on Hero → About. */
+  function playReelPinCut() {
+    if (reelPinCutPlayed || reduceMq.matches) return;
+    reelPinCutPlayed = true;
     const cut = document.getElementById('film-cut');
     const titles = document.querySelectorAll('.reel--treatments .beats .beat');
     const finish = () => {
       if (cut) cut.classList.remove('is-on');
-      heroCutDone = true;
+      reelPinCutDone = true;
       playIncomingTreatmentTitle(titles, 0);
     };
     if (!cut) {
@@ -181,16 +182,17 @@
       return;
     }
     cut.classList.add('is-on');
-    window.setTimeout(finish, HERO_CUT_MS);
+    window.setTimeout(finish, REEL_PIN_CUT_MS);
   }
 
-  function checkHeroCut() {
-    if (heroCutPlayed || reduceMq.matches) return;
-    if (treatmentsStagePinned()) playHeroToReelCut();
+  function checkReelPinCut() {
+    if (reelPinCutPlayed || reduceMq.matches) return;
+    if (treatmentsStagePinned()) playReelPinCut();
   }
 
   function armChapterEdges() {
     if (reduceMq.matches || !('IntersectionObserver' in window)) return;
+    /* About + later chapters: 80ms opacity. Treatments uses playReelPinCut instead. */
     const nodes = document.querySelectorAll('#about, #testimonials, #visit, #lead');
     const io = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
@@ -248,7 +250,7 @@
         paintLayer(el, beatOpacity(t, i, beats, BEAT_OVERLAP), beatScale(t, i, beats, BEAT_OVERLAP), i === nearest);
       });
     });
-    checkHeroCut();
+    checkReelPinCut();
   }
 
   function markPlates() {
@@ -381,8 +383,8 @@
     if (motionStarted) return;
     motionStarted = true;
     if (treatmentsStagePinned()) {
-      heroCutPlayed = true;
-      heroCutDone = true;
+      reelPinCutPlayed = true;
+      reelPinCutDone = true;
     }
     startLenis();
     playHeroTitle();
@@ -420,8 +422,8 @@
     }
     motionStarted = false;
     lastTreatmentTitle = -1;
-    heroCutPlayed = treatmentsStagePinned();
-    heroCutDone = heroCutPlayed;
+    reelPinCutPlayed = treatmentsStagePinned();
+    reelPinCutDone = reelPinCutPlayed;
     startMotion();
   });
 

@@ -395,7 +395,7 @@ p { margin: 0 0 1em; }
 .reel-plates {
   position: absolute;
   inset: 0;
-  z-index: 1; /* trap plate z-index 2/3 from JS so type stays above */
+  z-index: 0; /* keep JS plate z-index 2/3 under reel-copy */
 }
 
 .reel-plate {
@@ -466,13 +466,14 @@ p { margin: 0 0 1em; }
   transform-origin: center;
 }
 
-/* DiamondPolar (anti-aging + glow): contain the full handle, off the RTL type. */
+/* DiamondPolar (anti-aging + glow): full handle contained, clear of RTL title. */
 .reel--treatments .crop-face-right,
 .reel--treatments .crop-flowers {
-  object-position: center;
-  padding-inline-start: 24vw;
-  padding-inline-end: 10vw;
-  padding-block: 9vh;
+  object-position: 0% 38%;
+  padding-inline-start: 50vw;
+  padding-inline-end: 6vw;
+  padding-block-start: 8vh;
+  padding-block-end: 28vh;
 }
 
 .reel-copy {
@@ -487,6 +488,7 @@ p { margin: 0 0 1em; }
 
 /* Lift treatment type so the beat CTA stays on a 900px-tall stage. */
 .reel--treatments .reel-copy {
+  z-index: 4;
   inset-block-end: clamp(80px, 16vh, 148px);
 }
 
@@ -826,7 +828,7 @@ html.is-booting .film-loader-hairline span {
   to { transform: scaleX(1); }
 }
 
-/* Hero → treatments scripted cut */
+/* Treatments reel pin: 160ms dip to #060403. Hero → About is 80ms opacity only. */
 .film-cut {
   position: fixed;
   inset: 0;
@@ -1037,5 +1039,13 @@ html.is-booting .film-loader-hairline span {
   .reel-index { top: auto; bottom: 22px; transform: none; flex-direction: row; gap: 0.85em; }
   .reel-copy { padding-inline-start: 0; inset-inline-end: var(--pad); }
   .reel-copy--quote { padding-block: 96px 72px; }
+  .reel--treatments .crop-face-right,
+  .reel--treatments .crop-flowers {
+    object-position: 0% 16%;
+    padding-inline-start: 10vw;
+    padding-inline-end: 6vw;
+    padding-block-start: 12vh;
+    padding-block-end: 44vh;
+  }
   .hours div { grid-template-columns: 1fr auto; }
 }
