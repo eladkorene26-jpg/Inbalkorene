@@ -248,6 +248,15 @@ h1, h2, h3 {
   font-size: clamp(2rem, 5.6vw, 4.8rem);
 }
 
+.cut-title,
+.cut-title .split-clip,
+.cut-title .split-word {
+  white-space: nowrap;
+  hyphens: none;
+  overflow-wrap: normal;
+  word-break: keep-all;
+}
+
 .beat h3 small {
   display: block;
   margin-top: 0.28em;
@@ -476,6 +485,11 @@ p { margin: 0 0 1em; }
   isolation: isolate;
 }
 
+/* Lift treatment type so the beat CTA stays on a 900px-tall stage. */
+.reel--treatments .reel-copy {
+  inset-block-end: clamp(80px, 16vh, 148px);
+}
+
 .reel--treatments .reel-copy::before {
   content: "";
   position: absolute;
@@ -513,6 +527,10 @@ p { margin: 0 0 1em; }
 .beats {
   position: relative;
   min-height: 14.5em;
+}
+
+.reel--treatments .beats {
+  min-height: 18em;
 }
 
 .reel-copy--quote .beats { min-height: 11em; }

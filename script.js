@@ -113,6 +113,23 @@
     if (el.closest('#lead-form') || el.closest('.lead-form')) return;
     el.dataset.splitPlayed = '1';
     try {
+      /* Treatment titles are one hard-cut unit so hyphenated names stay intact. */
+      if (el.classList.contains('cut-title')) {
+        const word = document.createElement('span');
+        word.className = 'split-word';
+        while (el.firstChild) word.appendChild(el.firstChild);
+        const clip = document.createElement('span');
+        clip.className = 'split-clip';
+        clip.appendChild(word);
+        el.appendChild(clip);
+        gsap.set(word, { yPercent: 120 });
+        gsap.to(word, {
+          yPercent: 0,
+          duration: 0.7,
+          ease: 'expo.out',
+        });
+        return;
+      }
       const split = new SplitType(el, { types: 'words', tagName: 'span', wordClass: 'split-word' });
       if (!split.words || !split.words.length) return;
       split.words.forEach((word) => {
