@@ -469,11 +469,11 @@ p { margin: 0 0 1em; }
 /* DiamondPolar (anti-aging + glow): full handle contained, clear of RTL title. */
 .reel--treatments .crop-face-right,
 .reel--treatments .crop-flowers {
-  object-position: 0% 42%;
-  padding-inline-start: 38vw;
-  padding-inline-end: 8vw;
+  object-position: 0% 38%;
+  padding-inline-start: 50vw;
+  padding-inline-end: 6vw;
   padding-block-start: 8vh;
-  padding-block-end: 22vh;
+  padding-block-end: 28vh;
 }
 
 .reel-copy {
@@ -1039,5 +1039,13 @@ html.is-booting .film-loader-hairline span {
   .reel-index { top: auto; bottom: 22px; transform: none; flex-direction: row; gap: 0.85em; }
   .reel-copy { padding-inline-start: 0; inset-inline-end: var(--pad); }
   .reel-copy--quote { padding-block: 96px 72px; }
+  .reel--treatments .crop-face-right,
+  .reel--treatments .crop-flowers {
+    object-position: 0% 16%;
+    padding-inline-start: 10vw;
+    padding-inline-end: 6vw;
+    padding-block-start: 12vh;
+    padding-block-end: 44vh;
+  }
   .hours div { grid-template-columns: 1fr auto; }
 }
