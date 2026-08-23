@@ -341,6 +341,12 @@
     if (!hero || !img || !canvas) return;
 
     const run = async () => {
+      try {
+        const probe = document.createElement('canvas');
+        if (!(probe.getContext('webgl2') || probe.getContext('webgl'))) return;
+      } catch (err) {
+        return;
+      }
       let ogl;
       try {
         ogl = await import('https://cdn.jsdelivr.net/npm/ogl@1.0.11/src/index.js');
