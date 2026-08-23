@@ -775,12 +775,12 @@ html.is-booting .film-loader {
 
 .film-loader-brand {
   pointer-events: none;
-  padding: 8px;
+  padding: 6px;
 }
 
 .film-loader-brand img {
-  height: 104px;
-  width: 104px;
+  height: 96px;
+  width: 96px;
 }
 
 .film-loader-hairline {
@@ -999,7 +999,7 @@ html.is-booting .film-loader-hairline span {
 
 @media (max-width: 720px) {
   .brand img { height: 64px; width: 64px; }
-  .film-loader-brand img { height: 96px; width: 96px; }
+  .film-loader-brand img { height: 88px; width: 88px; }
   .brand { padding: 5px; }
   .site-header {
     padding-bottom: 36px;
