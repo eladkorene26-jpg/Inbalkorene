@@ -1,5 +1,5 @@
 :root {
-  --stage: #0B0B0B;
+  --stage: #060403;
   --type: #F4F0EA;
   --paper: #F4F0EA;
   --muted: #A39C94;
@@ -32,6 +32,27 @@ html {
 html.is-nav-locked,
 body.is-nav-locked {
   overflow: hidden;
+}
+
+html.is-booting {
+  overflow: hidden;
+}
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis:not(.lenis-autoToggle).lenis-stopped {
+  overflow: clip;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
 }
 
 body {
@@ -189,6 +210,13 @@ a { color: inherit; }
   font-weight: 700;
 }
 
+.btn-accent:hover,
+.btn-accent:focus-visible {
+  background: var(--type);
+  color: var(--stage);
+  border-color: var(--type);
+}
+
 .btn-primary {
   background: transparent;
   color: var(--type);
@@ -277,6 +305,23 @@ p { margin: 0 0 1em; }
   object-fit: cover;
   transform-origin: center center;
   will-change: transform;
+}
+
+.hero-gl {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: none;
+  pointer-events: none;
+}
+
+.hero.is-gl .hero-gl {
+  display: block;
+}
+
+.hero.is-gl .plate-img {
+  opacity: 0;
 }
 
 .hero .plate-img { object-position: 28% 38%; }
@@ -718,13 +763,114 @@ blockquote footer {
 .container,
 .narrow { width: min(720px, 92%); margin-inline: auto; }
 
-/* Scroll-driven motion */
+/* Session loader: existing logo chip + 1px hairline. No wordmark / % / 3D. */
+.film-loader {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 160;
+  place-items: center;
+  background: #060403;
+  pointer-events: none;
+}
+
+html.is-booting .film-loader {
+  display: grid;
+}
+
+.film-loader.is-exiting {
+  opacity: 0;
+  transition: opacity 200ms linear;
+}
+
+.film-loader-inner {
+  display: grid;
+  justify-items: center;
+  gap: 22px;
+}
+
+.film-loader-brand {
+  pointer-events: none;
+}
+
+.film-loader-hairline {
+  width: 72px;
+  height: 1px;
+  background: rgba(244, 240, 234, 0.18);
+  overflow: hidden;
+}
+
+.film-loader-hairline span {
+  display: block;
+  width: 100%;
+  height: 1px;
+  background: var(--type);
+  transform: scaleX(0);
+  transform-origin: right center;
+}
+
+html.is-booting .film-loader-hairline span {
+  animation: hair-fill 1.15s ease-out forwards;
+}
+
+@keyframes hair-fill {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+/* Hero → treatments scripted cut */
+.film-cut {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: #060403;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.film-cut.is-on {
+  opacity: 1;
+}
+
+/* SplitType clip wrappers — H1 + treatment titles only */
+.split-clip {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+}
+
+.split-word {
+  display: inline-block;
+  will-change: transform;
+}
+
+/* Other chapter edges: 80ms opacity, no extra black */
+.edge-cut {
+  animation: edge-cut 80ms linear;
+}
+
+@keyframes edge-cut {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Scroll-driven motion — Ken Burns starts after loader (html.is-ready) */
 @supports (animation-timeline: view()) {
   @media (prefers-reduced-motion: no-preference) {
-    .plate-img {
+    html.is-ready .plate-img {
       animation: kenburns linear both;
       animation-timeline: view();
       animation-range: cover;
+    }
+
+    html.is-ready .hero.is-gl .hero-gl {
+      animation: kenburns linear both;
+      animation-timeline: view();
+      animation-range: cover;
+    }
+
+    html.is-ready .hero.is-gl .plate-img {
+      animation: none;
     }
 
     .plate-type {
@@ -747,8 +893,16 @@ blockquote footer {
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .no-sda .plate.is-view .plate-img {
+  html.is-ready .no-sda .plate.is-view .plate-img {
     animation: kenburns 22s linear forwards;
+  }
+
+  html.is-ready .no-sda .hero.is-gl.is-view .hero-gl {
+    animation: kenburns 22s linear forwards;
+  }
+
+  html.is-ready .no-sda .hero.is-gl .plate-img {
+    animation: none;
   }
 }
 
@@ -820,6 +974,35 @@ blockquote footer {
   }
 
   .reel-index { display: none; }
+
+  .film-loader,
+  .film-cut {
+    display: none !important;
+    opacity: 0 !important;
+  }
+
+  html.is-booting {
+    overflow: unset;
+  }
+
+  .hero-gl {
+    display: none !important;
+  }
+
+  .hero.is-gl .plate-img {
+    opacity: 1;
+  }
+
+  .split-clip,
+  .split-word {
+    display: inline;
+    overflow: visible;
+    transform: none !important;
+  }
+
+  .edge-cut {
+    animation: none;
+  }
 }
 
 @media (max-width: 900px) {
