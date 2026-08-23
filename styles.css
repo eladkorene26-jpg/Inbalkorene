@@ -826,7 +826,7 @@ html.is-booting .film-loader-hairline span {
   to { transform: scaleX(1); }
 }
 
-/* Hero → treatments scripted cut */
+/* Treatments reel pin: 160ms dip to #060403. Hero → About is 80ms opacity only. */
 .film-cut {
   position: fixed;
   inset: 0;
