@@ -13,7 +13,6 @@
   const HERO_CUT_MS = 160;
 
   let lenis = null;
-  let heroGl = null;
   let magnetCleanup = null;
   let heroCutDone = false;
   let heroCutPlayed = false;
@@ -333,190 +332,6 @@
     };
   }
 
-  function startHeroGl() {
-    if (reduceMq.matches) return;
-    const hero = document.querySelector('.hero');
-    const img = hero && hero.querySelector('.plate-img');
-    const canvas = hero && hero.querySelector('.hero-gl');
-    if (!hero || !img || !canvas) return;
-
-    const run = async () => {
-      try {
-        const probe = document.createElement('canvas');
-        if (!(probe.getContext('webgl2') || probe.getContext('webgl'))) return;
-      } catch (err) {
-        return;
-      }
-      let ogl;
-      try {
-        ogl = await import('https://cdn.jsdelivr.net/npm/ogl@1.0.11/src/index.js');
-      } catch (err) {
-        return;
-      }
-      const { Renderer, Camera, Program, Mesh, Texture, Plane, Vec2 } = ogl;
-      let renderer;
-      try {
-        renderer = new Renderer({
-          canvas: canvas,
-          dpr: Math.min(window.devicePixelRatio || 1, 2),
-          alpha: false,
-          antialias: false,
-        });
-      } catch (err) {
-        return;
-      }
-      const gl = renderer.gl;
-      if (!gl) return;
-
-      const camera = new Camera(gl, { near: 0.1, far: 10 });
-      camera.position.z = 1;
-      camera.orthographic({ left: -0.5, right: 0.5, bottom: -0.5, top: 0.5 });
-
-      const texture = new Texture(gl, { generateMipmaps: false, minFilter: gl.LINEAR, magFilter: gl.LINEAR });
-      const applyImage = () => {
-        texture.image = img;
-        texture.needsUpdate = true;
-      };
-      if (img.complete) applyImage();
-      else img.addEventListener('load', applyImage, { once: true });
-
-      const geometry = new Plane(gl, { width: 1, height: 1, widthSegments: 6, heightSegments: 6 });
-      const mouse = new Vec2(0.5, 0.5);
-      const mouseTarget = new Vec2(0.5, 0.5);
-      const cover = new Vec2(1, 1);
-      const offset = new Vec2(0, 0);
-
-      const program = new Program(gl, {
-        vertex: `
-          attribute vec3 position;
-          attribute vec2 uv;
-          uniform mat4 modelViewMatrix;
-          uniform mat4 projectionMatrix;
-          uniform vec2 uMouse;
-          uniform float uAmp;
-          varying vec2 vUv;
-          void main() {
-            vUv = uv;
-            vec3 pos = position;
-            float d = distance(uv, uMouse);
-            pos.z += exp(-d * 7.0) * uAmp;
-            gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);
-          }
-        `,
-        fragment: `
-          precision highp float;
-          uniform sampler2D tMap;
-          uniform vec2 uCover;
-          uniform vec2 uOffset;
-          varying vec2 vUv;
-          void main() {
-            vec2 uv = vec2(vUv.x * uCover.x + uOffset.x, 1.0 - (vUv.y * uCover.y + uOffset.y));
-            gl_FragColor = texture2D(tMap, uv);
-          }
-        `,
-        uniforms: {
-          tMap: { value: texture },
-          uMouse: { value: mouse },
-          uAmp: { value: 0.06 },
-          uCover: { value: cover },
-          uOffset: { value: offset },
-        },
-      });
-
-      const mesh = new Mesh(gl, { geometry: geometry, program: program });
-
-      function setCover() {
-        const viewW = canvas.clientWidth || hero.clientWidth;
-        const viewH = canvas.clientHeight || hero.clientHeight;
-        const imgW = img.naturalWidth || 1365;
-        const imgH = img.naturalHeight || 2048;
-        const scale = Math.max(viewW / imgW, viewH / imgH);
-        const drawW = imgW * scale;
-        const drawH = imgH * scale;
-        const sx = viewW / drawW;
-        const sy = viewH / drawH;
-        cover.set(sx, sy);
-        offset.set(((drawW - viewW) * 0.28) / drawW, ((drawH - viewH) * 0.38) / drawH);
-      }
-
-      function resize() {
-        const w = hero.clientWidth;
-        const h = hero.clientHeight;
-        renderer.setSize(w, h);
-        setCover();
-      }
-
-      function onPointer(event) {
-        const rect = canvas.getBoundingClientRect();
-        mouseTarget.set(
-          (event.clientX - rect.left) / Math.max(rect.width, 1),
-          1 - (event.clientY - rect.top) / Math.max(rect.height, 1)
-        );
-      }
-
-      let visible = true;
-      let raf = 0;
-      function frame() {
-        if (!visible) {
-          raf = 0;
-          return;
-        }
-        mouse.x += (mouseTarget.x - mouse.x) * 0.15;
-        mouse.y += (mouseTarget.y - mouse.y) * 0.15;
-        renderer.render({ scene: mesh, camera: camera });
-        raf = requestAnimationFrame(frame);
-      }
-
-      function start() {
-        if (!visible || raf) return;
-        raf = requestAnimationFrame(frame);
-      }
-
-      function stop() {
-        if (raf) cancelAnimationFrame(raf);
-        raf = 0;
-      }
-
-      const io = ('IntersectionObserver' in window)
-        ? new IntersectionObserver((entries) => {
-          visible = entries.some((entry) => entry.isIntersecting);
-          if (visible) start();
-          else stop();
-        }, { threshold: 0.01 })
-        : null;
-      if (io) io.observe(hero);
-
-      window.addEventListener('pointermove', onPointer, { passive: true });
-      window.addEventListener('resize', resize, { passive: true });
-      resize();
-      hero.classList.add('is-gl');
-      start();
-
-      heroGl = {
-        destroy() {
-          visible = false;
-          stop();
-          if (io) io.disconnect();
-          window.removeEventListener('pointermove', onPointer);
-          window.removeEventListener('resize', resize);
-          hero.classList.remove('is-gl');
-          try {
-            const ext = gl.getExtension('WEBGL_lose_context');
-            if (ext) ext.loseContext();
-          } catch (err) { /* ignore */ }
-          heroGl = null;
-        },
-      };
-    };
-
-    run();
-  }
-
-  function destroyHeroGl() {
-    if (heroGl && typeof heroGl.destroy === 'function') heroGl.destroy();
-    heroGl = null;
-  }
-
   function exitLoader(then) {
     const loader = document.getElementById('film-loader');
     markLoaderSeen();
@@ -556,7 +371,6 @@
     playHeroTitle();
     armChapterEdges();
     startMagnet();
-    startHeroGl();
     revealOnce();
     markPlates();
     syncReels();
@@ -567,7 +381,6 @@
     document.documentElement.classList.remove('is-booting');
     document.documentElement.classList.add('is-ready');
     destroyLenis();
-    destroyHeroGl();
     if (magnetCleanup) magnetCleanup();
     document.querySelectorAll('.plate-type').forEach((el) => { el.style.transform = ''; });
     clearReelMotion();
