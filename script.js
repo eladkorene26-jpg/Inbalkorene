@@ -195,7 +195,7 @@
   function armChapterEdges() {
     if (reduceMq.matches || !('IntersectionObserver' in window)) return;
     /* About + later chapters: 80ms opacity. Treatments uses playReelPinCut instead. */
-    const nodes = document.querySelectorAll('#about, #new, #testimonials, #visit, #lead');
+    const nodes = document.querySelectorAll('#about, #hadash, #testimonials, #visit, #lead');
     const io = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (!entry.isIntersecting || entry.target.dataset.edgePlayed === '1') return;
@@ -511,6 +511,25 @@
       if (event.key === 'Escape') setNav(false);
     });
   }
+
+  function scrollToId(id) {
+    const target = document.getElementById(id);
+    if (!target) return;
+    if (lenis) {
+      lenis.scrollTo(target, { duration: reduceMq.matches ? 0 : 1.15, offset: -12 });
+      return;
+    }
+    target.scrollIntoView({ behavior: reduceMq.matches ? 'auto' : 'smooth', block: 'start' });
+  }
+
+  document.querySelectorAll('a[href="#hadash"]').forEach((link) => {
+    link.addEventListener('click', (event) => {
+      event.preventDefault();
+      setNav(false);
+      scrollToId('hadash');
+      try { history.pushState(null, '', '#hadash'); } catch (err) { /* ignore */ }
+    });
+  });
 
   const form = document.getElementById('lead-form');
   if (form) {

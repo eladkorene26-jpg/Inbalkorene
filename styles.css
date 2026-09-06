@@ -368,6 +368,35 @@ p { margin: 0 0 1em; }
   gap: 10px;
 }
 
+#hadash {
+  scroll-margin-top: 80px;
+}
+
+.hero .hero-ctas {
+  flex-direction: column;
+  align-items: stretch;
+  max-width: 22em;
+}
+
+.hero .hero-ctas .btn {
+  width: 100%;
+  min-height: 48px;
+}
+
+@media (min-width: 721px) {
+  .hero .hero-ctas {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    max-width: none;
+  }
+
+  .hero .hero-ctas .btn {
+    width: auto;
+    min-width: 11.5em;
+  }
+}
+
 /* NEW devices — Flex MD video plate + stills. After About, before Venus. */
 .chapter.products {
   background: var(--stage);
