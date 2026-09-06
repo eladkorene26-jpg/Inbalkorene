@@ -418,14 +418,37 @@ p { margin: 0 0 1em; }
 .new-badge {
   display: inline-flex;
   align-items: center;
-  min-height: 32px;
+  min-height: 46px;
   margin: 0 0 0.85em;
-  padding: 0.18em 0.75em;
-  border: 1px solid rgba(244, 240, 234, 0.42);
-  font-size: 0.78rem;
-  font-weight: 500;
-  letter-spacing: 0.22em;
-  color: var(--type);
+  padding: 0.32em 1.15em;
+  border: 1px solid rgba(244, 240, 234, 0.22);
+  font-size: 1.12rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  color: #F4F0EA;
+  background: #B76E79;
+}
+
+.new-badge.reveal.is-in {
+  transition: opacity 0.85s ease;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html.is-ready .new-badge.reveal.is-in {
+    animation: badge-pulse 1.8s ease-in-out 0.85s infinite;
+  }
+}
+
+@keyframes badge-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.06);
+    opacity: 0.86;
+  }
 }
 
 .products-sub {
@@ -507,6 +530,21 @@ p { margin: 0 0 1em; }
   z-index: 0; /* keep JS plate z-index 2/3 under reel-copy */
 }
 
+/* Soft pool of light behind Venus handles only — white product on #060403. */
+.reel--treatments .reel-plates::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse 46% 56% at 34% 40%,
+    rgba(244, 240, 234, 0.09) 0%,
+    rgba(244, 240, 234, 0.03) 42%,
+    rgba(6, 4, 3, 0) 74%
+  );
+}
+
 .reel-plate {
   position: absolute;
   inset: 0;
@@ -585,14 +623,16 @@ p { margin: 0 0 1em; }
   padding-block-end: 28vh;
 }
 
-/* Full vertical handle graphics: contain, sit on the visual left, clear of RTL titles. */
+/* Cinematic handle field: type stays on RTL start (physical right).
+   Handle sits center-ish in the end-side open field (~58% of the plate),
+   not pinned to the far-left edge. ~1.2× previous contain box. */
 .reel--treatments .reel-plate--graphic {
   object-fit: contain;
-  object-position: 0% 42%;
-  padding-inline-start: 42vw;
-  padding-inline-end: 4vw;
-  padding-block-start: 6vh;
-  padding-block-end: 22vh;
+  object-position: 36% 40%;
+  padding-inline-start: 32vw;
+  padding-inline-end: 8vw;
+  padding-block-start: 4vh;
+  padding-block-end: 13vh;
 }
 
 .reel-copy {
@@ -1029,7 +1069,8 @@ html.is-booting .film-loader-hairline span {
   .plate-img,
   .plate-type,
   .reel-plate,
-  .beat {
+  .beat,
+  .new-badge {
     animation: none !important;
     transform: none !important;
     will-change: auto;
@@ -1170,12 +1211,19 @@ html.is-booting .film-loader-hairline span {
     padding-block-start: 12vh;
     padding-block-end: 44vh;
   }
+  .reel--treatments .reel-plates::before {
+    background: radial-gradient(
+      ellipse 70% 48% at 50% 22%,
+      rgba(244, 240, 234, 0.08) 0%,
+      rgba(6, 4, 3, 0) 72%
+    );
+  }
   .reel--treatments .reel-plate--graphic {
     object-position: 50% 18%;
     padding-inline-start: 8vw;
-    padding-inline-end: 6vw;
-    padding-block-start: 10vh;
-    padding-block-end: 40vh;
+    padding-inline-end: 8vw;
+    padding-block-start: 6vh;
+    padding-block-end: 44vh;
   }
   .products-stills img.products-still--treatment {
     height: 42vh;
