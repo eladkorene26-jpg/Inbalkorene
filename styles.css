@@ -418,13 +418,13 @@ p { margin: 0 0 1em; }
 .new-badge {
   display: inline-flex;
   align-items: center;
-  min-height: 46px;
+  min-height: 52px;
   margin: 0 0 0.85em;
-  padding: 0.32em 1.15em;
+  padding: 0.38em 1.2em;
   border: 1px solid rgba(244, 240, 234, 0.22);
-  font-size: 1.12rem;
+  font-size: 1.75rem;
   font-weight: 600;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.14em;
   color: #F4F0EA;
   background: #B76E79;
 }
@@ -435,19 +435,18 @@ p { margin: 0 0 1em; }
 
 @media (prefers-reduced-motion: no-preference) {
   html.is-ready .new-badge.reveal.is-in {
-    animation: badge-pulse 1.8s ease-in-out 0.85s infinite;
+    animation: badge-soft 1.4s ease 0.2s both;
   }
 }
 
-@keyframes badge-pulse {
-  0%,
-  100% {
-    transform: scale(1);
-    opacity: 1;
+@keyframes badge-soft {
+  0% {
+    opacity: 0.55;
+    transform: scale(0.96);
   }
-  50% {
-    transform: scale(1.06);
-    opacity: 0.86;
+  100% {
+    opacity: 1;
+    transform: scale(1);
   }
 }
 
@@ -623,16 +622,24 @@ p { margin: 0 0 1em; }
   padding-block-end: 28vh;
 }
 
-/* Cinematic handle field: type stays on RTL start (physical right).
-   Handle sits center-ish in the end-side open field (~58% of the plate),
-   not pinned to the far-left edge. ~1.2× previous contain box. */
+/* Larger Venus handles, shifted toward LTR left. Dark gutter ≥16vw
+   between the handle’s inline-end edge and the RTL title start. */
 .reel--treatments .reel-plate--graphic {
   object-fit: contain;
-  object-position: 36% 40%;
-  padding-inline-start: 32vw;
-  padding-inline-end: 8vw;
-  padding-block-start: 4vh;
-  padding-block-end: 13vh;
+  object-position: 8% 40%;
+  padding-inline-start: 16vw;
+  padding-inline-end: 4vw;
+  padding-block-start: 3vh;
+  padding-block-end: 10vh;
+}
+
+/* DiamondPolar + glow: same clear-of-title rule, tighter than 50vw. */
+.reel--treatments .reel-plate--clear {
+  object-position: 0% 38%;
+  padding-inline-start: 18vw;
+  padding-inline-end: 4vw;
+  padding-block-start: 3.5vh;
+  padding-block-end: 12vh;
 }
 
 .reel-copy {
@@ -1205,25 +1212,32 @@ html.is-booting .film-loader-hairline span {
   .reel-copy--quote { padding-block: 96px 72px; }
   .reel--treatments .crop-face-right,
   .reel--treatments .crop-flowers {
-    object-position: 0% 16%;
-    padding-inline-start: 10vw;
-    padding-inline-end: 6vw;
-    padding-block-start: 12vh;
-    padding-block-end: 44vh;
+    object-position: 50% 8%;
+    padding-inline: 8vw;
+    padding-block-start: 4vh;
+    padding-block-end: 50vh;
   }
   .reel--treatments .reel-plates::before {
     background: radial-gradient(
-      ellipse 70% 48% at 50% 22%,
+      ellipse 70% 42% at 50% 18%,
       rgba(244, 240, 234, 0.08) 0%,
       rgba(6, 4, 3, 0) 72%
     );
   }
-  .reel--treatments .reel-plate--graphic {
-    object-position: 50% 18%;
-    padding-inline-start: 8vw;
-    padding-inline-end: 8vw;
-    padding-block-start: 6vh;
-    padding-block-end: 44vh;
+  .reel--treatments .reel-copy {
+    inset-block-start: 50%;
+    inset-block-end: 28px;
+    inset-inline: var(--pad);
+    max-width: none;
+    padding-inline-start: 0;
+    padding-block-start: 24px;
+  }
+  .reel--treatments .reel-plate--graphic,
+  .reel--treatments .reel-plate--clear {
+    object-position: 50% 8%;
+    padding-inline: 8vw;
+    padding-block-start: 4vh;
+    padding-block-end: 50vh;
   }
   .products-stills img.products-still--treatment {
     height: 42vh;
