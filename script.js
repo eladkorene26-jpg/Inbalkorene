@@ -47,8 +47,10 @@
     nodes.forEach((el) => io.observe(el));
   }
 
-  /* Plates crossfade across ~30% of each beat. Treatment titles hard-cut. */
+  /* Plates crossfade across ~30% of each beat. Treatment titles hard-cut.
+     Treatments use a tighter overlap so handle dissolves feel snappier. */
   const BEAT_OVERLAP = 0.3;
+  const TREATMENT_OVERLAP = 0.16;
 
   function clearReelMotion() {
     document.querySelectorAll('.reel-plate, .beat').forEach((el) => {
@@ -236,10 +238,11 @@
 
       const titles = reel.querySelectorAll('.beats .beat');
       const cutTitles = reel.classList.contains('reel--treatments');
+      const overlap = cutTitles ? TREATMENT_OVERLAP : BEAT_OVERLAP;
       titles.forEach((el, i) => {
         const opacity = cutTitles
           ? (i === nearest ? 1 : 0)
-          : beatOpacity(t, i, beats, BEAT_OVERLAP);
+          : beatOpacity(t, i, beats, overlap);
         paintLayer(el, opacity, null, i === nearest);
       });
       if (cutTitles) playIncomingTreatmentTitle(titles, nearest);
@@ -247,7 +250,7 @@
       const plates = reel.querySelectorAll('.reel-plates .reel-plate');
       if (plates.length !== beats) return;
       plates.forEach((el, i) => {
-        paintLayer(el, beatOpacity(t, i, beats, BEAT_OVERLAP), beatScale(t, i, beats, BEAT_OVERLAP), i === nearest);
+        paintLayer(el, beatOpacity(t, i, beats, overlap), beatScale(t, i, beats, overlap), i === nearest);
       });
     });
     checkReelPinCut();

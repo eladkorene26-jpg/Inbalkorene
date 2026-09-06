@@ -462,6 +462,12 @@ p { margin: 0 0 1em; }
   margin-inline: auto;
 }
 
+.products-stills img.products-still--treatment {
+  height: min(58vh, 560px);
+  object-fit: cover;
+  object-position: 50% 28%;
+}
+
 /* Type reveal once */
 .reveal {
   opacity: 0;
@@ -479,6 +485,11 @@ p { margin: 0 0 1em; }
   --beat-travel: 100dvh;
   position: relative;
   height: calc(var(--beats) * var(--beat-travel) + 100dvh);
+}
+
+/* Treatments only: shorter beat travel so handle changes snap sooner. Quotes stay 100dvh. */
+.reel--treatments {
+  --beat-travel: 62dvh;
 }
 
 .reel-stage {
@@ -572,6 +583,16 @@ p { margin: 0 0 1em; }
   padding-inline-end: 6vw;
   padding-block-start: 8vh;
   padding-block-end: 28vh;
+}
+
+/* Full vertical handle graphics: contain, sit on the visual left, clear of RTL titles. */
+.reel--treatments .reel-plate--graphic {
+  object-fit: contain;
+  object-position: 0% 42%;
+  padding-inline-start: 42vw;
+  padding-inline-end: 4vw;
+  padding-block-start: 6vh;
+  padding-block-end: 22vh;
 }
 
 .reel-copy {
@@ -1148,6 +1169,16 @@ html.is-booting .film-loader-hairline span {
     padding-inline-end: 6vw;
     padding-block-start: 12vh;
     padding-block-end: 44vh;
+  }
+  .reel--treatments .reel-plate--graphic {
+    object-position: 50% 18%;
+    padding-inline-start: 8vw;
+    padding-inline-end: 6vw;
+    padding-block-start: 10vh;
+    padding-block-end: 40vh;
+  }
+  .products-stills img.products-still--treatment {
+    height: 42vh;
   }
   .hours div { grid-template-columns: 1fr auto; }
   .products-stills {
