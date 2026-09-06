@@ -383,6 +383,22 @@ p { margin: 0 0 1em; }
   min-height: 48px;
 }
 
+/* Hero only: rose outline + rose type. תאמי תור stays the one solid fill. */
+.hero .btn-hadash {
+  color: #B76E79;
+  border-color: #B76E79;
+  background: transparent;
+  box-shadow: none;
+}
+
+.hero .btn-hadash:hover,
+.hero .btn-hadash:focus-visible {
+  color: #B76E79;
+  border-color: #B76E79;
+  background: rgba(183, 110, 121, 0.15);
+  box-shadow: none;
+}
+
 @media (min-width: 721px) {
   .hero .hero-ctas {
     flex-direction: row;
@@ -456,6 +472,7 @@ p { margin: 0 0 1em; }
   letter-spacing: 0.14em;
   color: #F4F0EA;
   background: #B76E79;
+  box-shadow: 0 0 16px rgba(183, 110, 121, 0.28);
 }
 
 .new-badge.reveal.is-in {
