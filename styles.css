@@ -239,6 +239,7 @@ h1, h2, h3 {
 }
 
 .about h2,
+.products h2,
 .visit h2,
 .lead h2 {
   font-size: clamp(2.2rem, 6vw, 5.2rem);
@@ -286,7 +287,8 @@ h2.reel-kicker {
 p { margin: 0 0 1em; }
 
 .hero .plate-type p,
-.about .plate-type p {
+.about .plate-type p,
+.products .plate-type p {
   max-width: 36ch;
   font-size: clamp(1rem, 1.8vw, 1.25rem);
   color: var(--type);
@@ -318,10 +320,12 @@ p { margin: 0 0 1em; }
 
 .hero .plate-img { object-position: 28% 38%; }
 .about .plate-img { object-position: 62% 32%; }
+.products-poster { object-position: 50% 58%; }
 
 /* Type-side veil only (RTL start = right). 60–80% black under type, photo stays open. */
 .hero .plate-veil,
-.about .plate-veil {
+.about .plate-veil,
+.products-hero .plate-veil {
   background: linear-gradient(
     to left,
     rgba(0, 0, 0, 0.8) 0%,
@@ -364,6 +368,174 @@ p { margin: 0 0 1em; }
   gap: 10px;
 }
 
+#hadash {
+  scroll-margin-top: 80px;
+}
+
+.hero .hero-ctas {
+  flex-direction: column;
+  align-items: stretch;
+  max-width: 22em;
+}
+
+.hero .hero-ctas .btn {
+  width: 100%;
+  min-height: 48px;
+}
+
+/* Hero only: rose outline + rose type. תאמי תור stays the one solid fill. */
+.hero .btn-hadash {
+  color: #B76E79;
+  border-color: #B76E79;
+  background: transparent;
+  box-shadow: none;
+}
+
+.hero .btn-hadash:hover,
+.hero .btn-hadash:focus-visible {
+  color: #B76E79;
+  border-color: #B76E79;
+  background: rgba(183, 110, 121, 0.15);
+  box-shadow: none;
+}
+
+@media (min-width: 721px) {
+  .hero .hero-ctas {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    max-width: none;
+  }
+
+  .hero .hero-ctas .btn {
+    width: auto;
+    min-width: 11.5em;
+  }
+}
+
+/* NEW devices — Flex MD video plate + stills. After About, before Venus. */
+.chapter.products {
+  background: var(--stage);
+}
+
+.products-hero.plate {
+  position: relative;
+  min-height: 100dvh;
+  height: 100dvh;
+  overflow: hidden;
+}
+
+.products-video {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 58%;
+  background: var(--stage);
+}
+
+.products-poster {
+  z-index: 0;
+}
+
+.products-poster--need {
+  object-position: 50% 42%;
+}
+
+.products-chapter {
+  margin: 0 0 0.7em;
+  font-size: clamp(0.78rem, 1.4vw, 0.92rem);
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  color: var(--eyebrow);
+}
+
+.products-hero .plate-veil {
+  z-index: 2;
+}
+
+.products-hero .plate-type {
+  z-index: 3;
+}
+
+.new-badge {
+  display: inline-flex;
+  align-items: center;
+  min-height: 52px;
+  margin: 0 0 0.85em;
+  padding: 0.38em 1.2em;
+  border: 1px solid rgba(244, 240, 234, 0.22);
+  font-size: 1.75rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  color: #F4F0EA;
+  background: #B76E79;
+  box-shadow: 0 0 16px rgba(183, 110, 121, 0.28);
+}
+
+.new-badge.reveal.is-in {
+  transition: opacity 0.85s ease;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html.is-ready .new-badge.reveal.is-in {
+    animation: badge-soft 1.4s ease 0.2s both;
+  }
+}
+
+@keyframes badge-soft {
+  0% {
+    opacity: 0.55;
+    transform: scale(0.96);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.products-sub {
+  margin: 0 0 0.85em;
+  font-size: clamp(0.92rem, 1.6vw, 1.1rem);
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  color: var(--eyebrow);
+}
+
+.products .plate-type p.products-sub {
+  max-width: 34ch;
+}
+
+.products-stills {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--line);
+  border-block-start: 1px solid var(--line);
+}
+
+.products-stills figure {
+  margin: 0;
+  padding: clamp(28px, 6vw, 80px);
+  background: var(--stage);
+}
+
+.products-stills img {
+  width: 100%;
+  height: auto;
+  max-height: min(56vh, 540px);
+  object-fit: contain;
+  margin-inline: auto;
+}
+
+.products-stills img.products-still--treatment {
+  height: min(58vh, 560px);
+  object-fit: cover;
+  object-position: 50% 28%;
+}
+
 /* Type reveal once */
 .reveal {
   opacity: 0;
@@ -383,6 +555,11 @@ p { margin: 0 0 1em; }
   height: calc(var(--beats) * var(--beat-travel) + 100dvh);
 }
 
+/* Treatments only: shorter beat travel so handle changes snap sooner. Quotes stay 100dvh. */
+.reel--treatments {
+  --beat-travel: 62dvh;
+}
+
 .reel-stage {
   position: sticky;
   top: 0;
@@ -396,6 +573,21 @@ p { margin: 0 0 1em; }
   position: absolute;
   inset: 0;
   z-index: 0; /* keep JS plate z-index 2/3 under reel-copy */
+}
+
+/* Soft pool of light behind Venus handles only — white product on #060403. */
+.reel--treatments .reel-plates::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse 46% 56% at 34% 40%,
+    rgba(244, 240, 234, 0.09) 0%,
+    rgba(244, 240, 234, 0.03) 42%,
+    rgba(6, 4, 3, 0) 74%
+  );
 }
 
 .reel-plate {
@@ -474,6 +666,26 @@ p { margin: 0 0 1em; }
   padding-inline-end: 6vw;
   padding-block-start: 8vh;
   padding-block-end: 28vh;
+}
+
+/* Larger Venus handles, shifted toward LTR left. Dark gutter ≥16vw
+   between the handle’s inline-end edge and the RTL title start. */
+.reel--treatments .reel-plate--graphic {
+  object-fit: contain;
+  object-position: 8% 40%;
+  padding-inline-start: 16vw;
+  padding-inline-end: 4vw;
+  padding-block-start: 3vh;
+  padding-block-end: 10vh;
+}
+
+/* DiamondPolar + glow: same clear-of-title rule, tighter than 50vw. */
+.reel--treatments .reel-plate--clear {
+  object-position: 0% 38%;
+  padding-inline-start: 18vw;
+  padding-inline-end: 4vw;
+  padding-block-start: 3.5vh;
+  padding-block-end: 12vh;
 }
 
 .reel-copy {
@@ -910,7 +1122,8 @@ html.is-booting .film-loader-hairline span {
   .plate-img,
   .plate-type,
   .reel-plate,
-  .beat {
+  .beat,
+  .new-badge {
     animation: none !important;
     transform: none !important;
     will-change: auto;
@@ -987,6 +1200,10 @@ html.is-booting .film-loader-hairline span {
   .edge-cut {
     animation: none;
   }
+
+  .products-video {
+    display: none;
+  }
 }
 
 @media (max-width: 900px) {
@@ -1041,11 +1258,41 @@ html.is-booting .film-loader-hairline span {
   .reel-copy--quote { padding-block: 96px 72px; }
   .reel--treatments .crop-face-right,
   .reel--treatments .crop-flowers {
-    object-position: 0% 16%;
-    padding-inline-start: 10vw;
-    padding-inline-end: 6vw;
-    padding-block-start: 12vh;
-    padding-block-end: 44vh;
+    object-position: 50% 8%;
+    padding-inline: 8vw;
+    padding-block-start: 4vh;
+    padding-block-end: 50vh;
+  }
+  .reel--treatments .reel-plates::before {
+    background: radial-gradient(
+      ellipse 70% 42% at 50% 18%,
+      rgba(244, 240, 234, 0.08) 0%,
+      rgba(6, 4, 3, 0) 72%
+    );
+  }
+  .reel--treatments .reel-copy {
+    inset-block-start: 50%;
+    inset-block-end: 28px;
+    inset-inline: var(--pad);
+    max-width: none;
+    padding-inline-start: 0;
+    padding-block-start: 24px;
+  }
+  .reel--treatments .reel-plate--graphic,
+  .reel--treatments .reel-plate--clear {
+    object-position: 50% 8%;
+    padding-inline: 8vw;
+    padding-block-start: 4vh;
+    padding-block-end: 50vh;
+  }
+  .products-stills img.products-still--treatment {
+    height: 42vh;
   }
   .hours div { grid-template-columns: 1fr auto; }
+  .products-stills {
+    grid-template-columns: 1fr;
+  }
+  .products-stills img {
+    max-height: 42vh;
+  }
 }
