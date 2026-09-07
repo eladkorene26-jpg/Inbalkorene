@@ -488,7 +488,8 @@ p { margin: 0 0 1em; }
   z-index: 0;
 }
 
-.products-poster--need {
+.products-poster--need,
+.products-video--need {
   object-position: 50% 42%;
 }
 

@@ -159,18 +159,28 @@
         </figure>
       </div>
       <!--
-        1NEED: assets/1need-pro-demo.mp4 is the CEO 4s loop, committed but NOT autoplayed.
-        Frame review still shows on-screen English (1NEED pro titles + TRUST).
-        Per CEO lock: poster-only until a clean device loop lands. Never use the 12s English demo.
+        1NEED: muted loop is assets/1need-pro-loop.mp4 (~1.7MB). Same video-first
+        plate as Flex MD. Poster still underneath for first paint / reduced-motion.
+        Do not ship the 76MB raw demo.
       -->
       <article class="products-hero products-hero--need plate">
         <div class="plate-media">
+          <video
+            class="products-video products-video--need"
+            poster="assets/1need-pro-poster.jpg"
+            muted
+            loop
+            playsinline
+            preload="metadata"
+            aria-label="מיקרונידלינג 1NEED">
+            <source src="assets/1need-pro-loop.mp4" type="video/mp4">
+          </video>
           <img
             class="plate-img products-poster products-poster--need"
             src="assets/1need-pro-poster.jpg"
             alt="1NEED pro"
-            width="1280"
-            height="2276"
+            width="2160"
+            height="3840"
             loading="lazy"
             decoding="async">
           <div class="plate-veil" aria-hidden="true"></div>
