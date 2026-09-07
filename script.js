@@ -195,7 +195,7 @@
   function armChapterEdges() {
     if (reduceMq.matches || !('IntersectionObserver' in window)) return;
     /* About + later chapters: 80ms opacity. Treatments uses playReelPinCut instead. */
-    const nodes = document.querySelectorAll('#about, #hadash, #shop, #testimonials, #visit, #lead');
+    const nodes = document.querySelectorAll('#about, #hadash, #testimonials, #visit, #lead');
     const io = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (!entry.isIntersecting || entry.target.dataset.edgePlayed === '1') return;
@@ -522,15 +522,29 @@
     target.scrollIntoView({ behavior: reduceMq.matches ? 'auto' : 'smooth', block: 'start' });
   }
 
+  function markShopNav(on) {
+    document.querySelectorAll('a[href="#shop"]').forEach((link) => {
+      if (on) link.setAttribute('aria-current', 'page');
+      else link.removeAttribute('aria-current');
+    });
+  }
+
   document.querySelectorAll('a[href="#hadash"], a[href="#shop"]').forEach((link) => {
     link.addEventListener('click', (event) => {
       const id = link.getAttribute('href').slice(1);
       event.preventDefault();
       setNav(false);
+      markShopNav(id === 'shop');
       scrollToId(id);
       try { history.pushState(null, '', '#' + id); } catch (err) { /* ignore */ }
     });
   });
+
+  document.querySelectorAll('.site-nav a:not([href="#shop"])').forEach((link) => {
+    link.addEventListener('click', () => markShopNav(false));
+  });
+
+  if (location.hash === '#shop') markShopNav(true);
 
   function initBrochureDialog() {
     const layer = document.getElementById('brochure-layer');

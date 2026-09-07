@@ -133,6 +133,18 @@ a { color: inherit; }
 
 .site-nav a:hover { color: var(--muted); }
 
+/* Shop is a coming-soon destination — pink type, not a pill. */
+.site-nav a.nav-shop {
+  color: #B76E79;
+}
+
+.site-nav a.nav-shop:hover,
+.site-nav a.nav-shop:focus-visible,
+.site-nav a.nav-shop[aria-current="page"] {
+  color: #B76E79;
+  box-shadow: inset 0 -1px 0 #B76E79;
+}
+
 .nav-toggle {
   display: none;
   margin-inline-start: auto;
@@ -375,9 +387,13 @@ p { margin: 0 0 1em; }
   scroll-margin-top: 80px;
 }
 
-/* Quiet coming-soon strip. After חדש, before treatments. Text only. */
+/* Quiet coming-soon line. After פנייה, before footer. Text only. */
 .shop-teaser {
-  padding: clamp(28px, 5vh, 48px) var(--pad);
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0.55em 0.9em;
+  padding: 18px var(--pad);
   border-block-start: 1px solid var(--line);
   background: var(--stage);
 }
@@ -386,7 +402,7 @@ p { margin: 0 0 1em; }
   display: inline-flex;
   align-items: center;
   min-height: 28px;
-  margin: 0 0 0.55em;
+  margin: 0;
   padding: 0.2em 0.7em;
   border: 1px solid var(--line);
   font-size: 0.72rem;
@@ -398,10 +414,10 @@ p { margin: 0 0 1em; }
 
 .shop-teaser h2 {
   margin: 0;
-  font-size: clamp(1.05rem, 2.2vw, 1.35rem);
+  font-size: 0.95rem;
   font-weight: 400;
   letter-spacing: 0.04em;
-  color: var(--type);
+  color: var(--muted);
 }
 
 .hero .hero-ctas {
@@ -472,7 +488,8 @@ p { margin: 0 0 1em; }
   z-index: 0;
 }
 
-.products-poster--need {
+.products-poster--need,
+.products-video--need {
   object-position: 50% 42%;
 }
 
