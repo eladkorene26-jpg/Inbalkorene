@@ -370,8 +370,38 @@ p { margin: 0 0 1em; }
   gap: 10px;
 }
 
-#hadash {
+#hadash,
+#shop {
   scroll-margin-top: 80px;
+}
+
+/* Quiet coming-soon strip. After חדש, before treatments. Text only. */
+.shop-teaser {
+  padding: clamp(28px, 5vh, 48px) var(--pad);
+  border-block-start: 1px solid var(--line);
+  background: var(--stage);
+}
+
+.shop-badge {
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  margin: 0 0 0.55em;
+  padding: 0.2em 0.7em;
+  border: 1px solid var(--line);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  color: var(--eyebrow);
+  background: transparent;
+}
+
+.shop-teaser h2 {
+  margin: 0;
+  font-size: clamp(1.05rem, 2.2vw, 1.35rem);
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  color: var(--type);
 }
 
 .hero .hero-ctas {
