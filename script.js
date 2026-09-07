@@ -531,6 +531,122 @@
     });
   });
 
+  function initBrochureDialog() {
+    const layer = document.getElementById('brochure-layer');
+    const dialog = document.getElementById('brochure-dialog');
+    const title = document.getElementById('brochure-dialog-title');
+    const embed = document.getElementById('brochure-embed');
+    const wa = document.getElementById('brochure-wa');
+    const triggers = document.querySelectorAll('a[aria-controls="brochure-dialog"]');
+    if (!layer || !dialog || !title || !embed || !wa || !triggers.length) return;
+
+    const focusSel = 'a[href], button:not([disabled]), iframe, [tabindex]:not([tabindex="-1"])';
+    let opener = null;
+    let lastSrc = '';
+
+    function isOpen() {
+      return !layer.hasAttribute('hidden');
+    }
+
+    function lockPage(lock) {
+      document.documentElement.classList.toggle('is-brochure-open', lock);
+      document.body.classList.toggle('is-brochure-open', lock);
+      [...document.body.children].forEach((el) => {
+        if (el === layer) return;
+        if (lock) el.setAttribute('inert', '');
+        else el.removeAttribute('inert');
+      });
+      if (lenis) {
+        if (lock) lenis.stop();
+        else if (!document.documentElement.classList.contains('is-nav-locked')) lenis.start();
+      }
+    }
+
+    function fallbackTab(src) {
+      const win = window.open(src, '_blank', 'noopener');
+      if (win) {
+        try { win.opener = null; } catch (err) { /* ignore */ }
+      }
+    }
+
+    function closeDialog() {
+      if (!isOpen()) return;
+      layer.classList.remove('is-open');
+      layer.hidden = true;
+      embed.removeAttribute('src');
+      embed.src = 'about:blank';
+      lastSrc = '';
+      lockPage(false);
+      if (opener && typeof opener.focus === 'function') opener.focus();
+      opener = null;
+    }
+
+    function openDialog(trigger) {
+      const src = trigger.getAttribute('href');
+      if (!src) return;
+      const heading = trigger.closest('article') && trigger.closest('article').querySelector('h2');
+      const product = heading ? heading.textContent.trim() : (trigger.getAttribute('aria-label') || 'פרטים נוספים');
+      const siblingWa = trigger.closest('.hero-ctas') && trigger.closest('.hero-ctas').querySelector('.btn-accent');
+      title.textContent = product;
+      embed.title = product;
+      if (siblingWa && siblingWa.getAttribute('href')) wa.href = siblingWa.getAttribute('href');
+      opener = trigger;
+      lastSrc = src;
+      embed.src = src;
+      layer.hidden = false;
+      layer.classList.add('is-open');
+      lockPage(true);
+      const closeBtn = dialog.querySelector('.brochure-x');
+      if (closeBtn) closeBtn.focus();
+    }
+
+    triggers.forEach((trigger) => {
+      trigger.addEventListener('click', (event) => {
+        if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0) return;
+        event.preventDefault();
+        openDialog(trigger);
+      });
+    });
+
+    layer.querySelectorAll('[data-brochure-close]').forEach((el) => {
+      el.addEventListener('click', (event) => {
+        event.preventDefault();
+        closeDialog();
+      });
+    });
+
+    embed.addEventListener('error', () => {
+      if (!lastSrc) return;
+      const src = lastSrc;
+      closeDialog();
+      fallbackTab(src);
+    });
+
+    window.addEventListener('keydown', (event) => {
+      if (!isOpen()) return;
+      if (event.key === 'Escape') {
+        event.preventDefault();
+        event.stopPropagation();
+        closeDialog();
+        return;
+      }
+      if (event.key !== 'Tab') return;
+      const nodes = [...dialog.querySelectorAll(focusSel)].filter((el) => !el.hasAttribute('disabled'));
+      if (!nodes.length) return;
+      const first = nodes[0];
+      const last = nodes[nodes.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    });
+  }
+
+  initBrochureDialog();
+
   const form = document.getElementById('lead-form');
   if (form) {
     const status = form.querySelector('.form-status');
